@@ -9,17 +9,13 @@ import SwiftUI
 
 struct ProductItemView: View {
     let item: ItemModel
-    @Binding var addToCart: Bool
-    @Binding var count: Int
+    @State private var addToCart: Bool = false
+    @State private var count: Int = 0
     
     public init(
-        item: ItemModel = .init(image: ImageModel(), name: "", category: "", price: 0),
-        addToCart: Binding<Bool> = .constant(false),
-        count: Binding<Int> = .constant(0)
+        item: ItemModel = .init(image: ImageModel(), name: "", category: "", price: 0)
     ) {
         self.item = item
-        self._addToCart = addToCart
-        self._count = count
     }
     var body: some View {
         VStack(alignment: .leading) {

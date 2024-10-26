@@ -11,7 +11,6 @@ import SwiftData
 @Model
 class ItemModel: Decodable {
     @Attribute(.unique) var image: ImageModel
-   
     @Attribute(.unique) var name: String
     var category: String
     var price: Double

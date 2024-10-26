@@ -10,9 +10,7 @@ import SwiftData
 
 struct MenuView: View {
     @Query private var products: [ItemModel]
-    @State private var addToCart: Bool = false
-    @State private var count: Int = 0
-    
+
     var body: some View {
         ZStack {
             Color.launchScreenBackground.ignoresSafeArea()
@@ -20,7 +18,7 @@ struct MenuView: View {
                 MainHeaderView()
                 ScrollView {
                     ForEach(products, id: \.self) { item in
-                        ProductItemView(item: item, addToCart: $addToCart, count: $count)
+                        ProductItemView(item: item)
                     }
                 }
                 .padding(.horizontal, 20)
