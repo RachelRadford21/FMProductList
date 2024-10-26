@@ -29,9 +29,22 @@
 		AB1735A62CBB4AF0002E3B24 /* FMProductListUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FMProductListUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		AB1735D82CBB4E95002E3B24 /* Exceptions for "FMProductList" folder in "FMProductList" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = AB17358B2CBB4AEE002E3B24 /* FMProductList */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		AB17358E2CBB4AEF002E3B24 /* FMProductList */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				AB1735D82CBB4E95002E3B24 /* Exceptions for "FMProductList" folder in "FMProductList" target */,
+			);
 			path = FMProductList;
 			sourceTree = "<group>";
 		};
@@ -43,6 +56,36 @@
 		AB1735A92CBB4AF0002E3B24 /* FMProductListUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = FMProductListUITests;
+			sourceTree = "<group>";
+		};
+		AB1735BF2CBB4B78002E3B24 /* Model */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Model;
+			sourceTree = "<group>";
+		};
+		AB1735C22CBB4B9B002E3B24 /* HelperFiles */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = HelperFiles;
+			sourceTree = "<group>";
+		};
+		AB1735C42CBB4BB2002E3B24 /* ViewModel */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		AB4F39962CBC2D4C0009690E /* fonts */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = fonts;
+			sourceTree = "<group>";
+		};
+		ABF056F02CC591C300134915 /* images */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = images;
+			sourceTree = "<group>";
+		};
+		ABF0582F2CC5B06200134915 /* View */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -76,6 +119,12 @@
 			isa = PBXGroup;
 			children = (
 				AB17358E2CBB4AEF002E3B24 /* FMProductList */,
+				AB1735BF2CBB4B78002E3B24 /* Model */,
+				ABF0582F2CC5B06200134915 /* View */,
+				AB1735C42CBB4BB2002E3B24 /* ViewModel */,
+				AB1735C22CBB4B9B002E3B24 /* HelperFiles */,
+				ABF056F02CC591C300134915 /* images */,
+				AB4F39962CBC2D4C0009690E /* fonts */,
 				AB17359F2CBB4AF0002E3B24 /* FMProductListTests */,
 				AB1735A92CBB4AF0002E3B24 /* FMProductListUITests */,
 				AB17358D2CBB4AEF002E3B24 /* Products */,
@@ -109,6 +158,12 @@
 			);
 			fileSystemSynchronizedGroups = (
 				AB17358E2CBB4AEF002E3B24 /* FMProductList */,
+				AB1735BF2CBB4B78002E3B24 /* Model */,
+				AB1735C22CBB4B9B002E3B24 /* HelperFiles */,
+				AB1735C42CBB4BB2002E3B24 /* ViewModel */,
+				AB4F39962CBC2D4C0009690E /* fonts */,
+				ABF056F02CC591C300134915 /* images */,
+				ABF0582F2CC5B06200134915 /* View */,
 			);
 			name = FMProductList;
 			packageProductDependencies = (
@@ -399,6 +454,7 @@
 				DEVELOPMENT_TEAM = 25MBFXXLA7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FMProductList/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -428,6 +484,7 @@
 				DEVELOPMENT_TEAM = 25MBFXXLA7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FMProductList/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
