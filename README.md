@@ -22,5 +22,6 @@ This project was created as part of the [Frontend Mentor](https://www.frontendme
 
 - **SwiftUI**: Built with SwiftUI for a declarative and reactive user interface, focusing on modularity and clean component design.
 - **SwiftData**: Leveraged SwiftData for efficient data management, querying, and handling dynamic product data.
+- **Swift Testing**: Implemented unit and integration tests using Swift Testing's modern APIs, including `@Test` and `#expect`, to ensure the app’s functionality and data flow remain robust. This   allows for concise, asynchronous test cases and enhances overall code reliability.
 - **Icon Set Creator**: Used Icon Set Creator to generate the app icon for a polished, professional appearance.
 - **npoint.io**: Hosted product data on npoint.io, allowing the app to fetch product information dynamically via API calls instead of relying on local storage.
