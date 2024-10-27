@@ -78,14 +78,14 @@
 			path = fonts;
 			sourceTree = "<group>";
 		};
+		AB808C6A2CCE907600E8F2A3 /* View */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = View;
+			sourceTree = "<group>";
+		};
 		ABF056F02CC591C300134915 /* images */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = images;
-			sourceTree = "<group>";
-		};
-		ABF0582F2CC5B06200134915 /* View */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -120,7 +120,7 @@
 			children = (
 				AB17358E2CBB4AEF002E3B24 /* FMProductList */,
 				AB1735BF2CBB4B78002E3B24 /* Model */,
-				ABF0582F2CC5B06200134915 /* View */,
+				AB808C6A2CCE907600E8F2A3 /* View */,
 				AB1735C42CBB4BB2002E3B24 /* ViewModel */,
 				AB1735C22CBB4B9B002E3B24 /* HelperFiles */,
 				ABF056F02CC591C300134915 /* images */,
@@ -162,8 +162,8 @@
 				AB1735C22CBB4B9B002E3B24 /* HelperFiles */,
 				AB1735C42CBB4BB2002E3B24 /* ViewModel */,
 				AB4F39962CBC2D4C0009690E /* fonts */,
+				AB808C6A2CCE907600E8F2A3 /* View */,
 				ABF056F02CC591C300134915 /* images */,
-				ABF0582F2CC5B06200134915 /* View */,
 			);
 			name = FMProductList;
 			packageProductDependencies = (

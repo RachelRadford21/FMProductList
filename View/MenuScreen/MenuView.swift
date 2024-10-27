@@ -10,7 +10,7 @@ import SwiftData
 
 struct MenuView: View {
     @Query private var products: [ItemModel]
-
+    let loader: ProductLoader = ProductLoader()
     var body: some View {
         ZStack {
             Color.launchScreenBackground.ignoresSafeArea()
@@ -26,8 +26,7 @@ struct MenuView: View {
                 .scrollIndicators(.hidden)
                 .refreshable {
                     Task {
-                        
-                        
+                       try await loader.fetchProducts()
                     }
                 }
             }

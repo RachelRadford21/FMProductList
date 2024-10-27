@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
-    @State private var isActive = false
+    @State var isActive = false
     
     var body: some View {
         VStack {
@@ -21,10 +21,14 @@ struct ContentView: View {
                         .scaledToFill()
                         .frame(width: 400, height: 400)
                         .ignoresSafeArea()
+                        .accessibilityIdentifier("macaronImage")
                 }
             }
             else {
-                MenuView()
+                withAnimation(.easeOut(duration: 2.0)) {
+                    MenuView()
+                        .accessibilityIdentifier("menuView")
+                }
             }
         }
         .onAppear {
