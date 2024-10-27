@@ -77,7 +77,7 @@ extension AddToCartButtonView {
                 .overlay {
                     HStack {
                         countButton(imageName: "icon-decrement-quantity") {
-                            count -= 1
+                            if count > 0 { count -= 1 }
                         }
                         Spacer()
                         Text("\(count)")
