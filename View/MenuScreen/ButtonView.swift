@@ -1,5 +1,5 @@
 //
-//  AddToCartButtonView.swift
+//  ButtonView.swift
 //  FMProductList
 //
 //  Created by Rachel Radford on 10/26/24.
@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-struct AddToCartButtonView: View {
+struct ButtonView: View {
     var color: Color
     var backgroundColor: Color
     var defaultButtonOpacity: Double
     var countButtonOpacity: Double
     @Binding var count: Int
     @Binding var addToCart: Bool
-
+    
     public init(
         color: Color = .clear,
         backgroundColor: Color = .clear,
@@ -35,10 +35,12 @@ struct AddToCartButtonView: View {
     }
 }
 
-extension AddToCartButtonView {
+extension ButtonView {
+    
     @ViewBuilder
     var buttonView: some View {
         addToCartButton()
+        
         if addToCart {
             cartCountButton()
         }
@@ -65,9 +67,9 @@ extension AddToCartButtonView {
         .opacity(defaultButtonOpacity)
     }
     
-        func cartCountButton() -> some View {
-            Button {
-            addToCart.toggle() 
+    func cartCountButton() -> some View {
+        Button {
+            addToCart.toggle()
         } label: {
             Capsule(style: .continuous)
                 .strokeBorder(color)
@@ -106,5 +108,5 @@ extension AddToCartButtonView {
     }
 }
 #Preview {
-    AddToCartButtonView()
+    ButtonView()
 }
