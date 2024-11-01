@@ -16,15 +16,14 @@ struct ContentView: View {
             if !isActive {
                 ZStack {
                     Color(#colorLiteral(red: 0.8784313725, green: 0.8431372549, blue: 0.8549019608, alpha: 1)).ignoresSafeArea()
-                    Image(.imageMacaronDesktop)
+                    Image("image-macaron-desktop")
                         .resizable()
                         .scaledToFill()
                         .frame(width: 400, height: 400)
                         .ignoresSafeArea()
                         .accessibilityIdentifier("macaronImage")
                 }
-            }
-            else {
+            } else {
                 withAnimation(.easeOut(duration: 2.0)) {
                     MenuView()
                         .accessibilityIdentifier("menuView")

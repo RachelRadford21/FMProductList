@@ -40,42 +40,44 @@ extension ButtonView {
     @ViewBuilder
     var buttonView: some View {
         addToCartButton()
+            .accessibilityIdentifier("addToCartButton")
         
         if addToCart {
             cartCountButton()
         }
     }
-    
-    func addToCartButton() -> some View {
-        Button {
-            addToCart.toggle()
-        } label: {
-            Capsule(style: .continuous)
-                .strokeBorder(Color.black.opacity(0.5))
-                .frame(width: 130, height: 40)
-                .background(.white)
-                .clipShape(RoundedRectangle(cornerRadius: 25))
-                .overlay {
-                    HStack(spacing: 5) {
-                        Image("icon-add-to-cart")
-                        Text("Add to Cart")
-                            .foregroundStyle(Color.black)
-                            .font(.custom("RedHatText-SemiBold", size: 12))
-                    }
-                }
+  
+  func addToCartButton() -> some View {
+    Button {
+      addToCart.toggle()
+    } label: {
+      Capsule(style: .continuous)
+        .strokeBorder(Color.black.opacity(0.5))
+        .frame(width: 155, height: 40)
+        .background(.white)
+        .clipShape(RoundedRectangle(cornerRadius: 25))
+        .overlay {
+          HStack(spacing: 5) {
+            Image("icon-add-to-cart")
+            Text("Add to Cart")
+              .foregroundStyle(Color.black)
+              .font(.custom("RedHatText-SemiBold", size: 12))
+          }
         }
-        .opacity(defaultButtonOpacity)
     }
-    
-    func cartCountButton() -> some View {
-        Button {
-            addToCart.toggle()
-        } label: {
-            Capsule(style: .continuous)
-                .strokeBorder(color)
-                .frame(width: 130, height: 40)
-                .background(backgroundColor)
-                .clipShape(RoundedRectangle(cornerRadius: 25))
+    .accessibilityIdentifier("addToCartButton")
+    .opacity(defaultButtonOpacity)
+  }
+  
+  func cartCountButton() -> some View {
+    Button {
+      addToCart.toggle()
+    } label: {
+      Capsule(style: .continuous)
+        .strokeBorder(color)
+        .frame(width: 155, height: 40)
+        .background(backgroundColor)
+        .clipShape(RoundedRectangle(cornerRadius: 25))
                 .overlay {
                     HStack {
                         countButton(imageName: "icon-decrement-quantity") {
@@ -83,15 +85,18 @@ extension ButtonView {
                         }
                         Spacer()
                         Text("\(count)")
-                            .font(.custom("RedHatText-SemiBold", size: 12))
+                            .font(.custom("RedHatText-SemiBold", size: 15))
                             .foregroundStyle(Color.white)
+                            .accessibilityIdentifier("countLabel")
                         Spacer()
                         countButton(imageName: "icon-increment-quantity") { count += 1 }
+                            
                     }
                     .padding(.horizontal, 12)
                     .opacity(countButtonOpacity)
                 }
         }
+        .accessibilityIdentifier("cartCountButton")
     }
     
     func countButton(imageName: String, action: (() -> Void)? ) ->  some View {
