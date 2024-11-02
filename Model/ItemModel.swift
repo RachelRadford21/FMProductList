@@ -10,16 +10,16 @@ import SwiftData
 
 @Model
 class ItemModel: Decodable {
-    @Attribute(.unique) var image: ImageModel
-    @Attribute(.unique) var name: String
+    var image: ImageModel
+    var name: String
     var category: String
     var price: Double
     
     init(
-    image: ImageModel,
-    name: String = "",
-    category: String = "",
-    price: Double = 0.0
+        image: ImageModel,
+        name: String = "",
+        category: String = "",
+        price: Double = 0.0
     ) {
         self.image = image
         self.name = name
@@ -28,17 +28,22 @@ class ItemModel: Decodable {
     }
     
     enum CodingKeys: String, CodingKey {
-            case image
-            case name
-            case category
-            case price
-        }
+        case image
+        case name
+        case category
+        case price
+    }
+    
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         image = try container.decode(ImageModel.self, forKey: .image)
         name = try container.decode(String.self, forKey: .name)
         category = try container.decode(String.self, forKey: .category)
         price = try container.decode(Double.self, forKey: .price)
-        }
+    }
+    
+    func decode(from decoder: Decoder) throws -> Self {
+        try .init(from: decoder)
+    }
 }
 

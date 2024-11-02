@@ -12,16 +12,15 @@ import SwiftData
 struct FMProductListApp: App {
     let container = try! ModelContainer(for: ItemModel.self)
     let productLoader = ProductLoader()
-    
     let dataImporter: DataImporter
     
     init() {
-        self.dataImporter = DataImporter(context: container.mainContext, loader: productLoader)
+      self.dataImporter = DataImporter(context: container.mainContext, loader: productLoader)
     }
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+          ContentView()
                 .task {
                     do {
                        try await dataImporter.importData()

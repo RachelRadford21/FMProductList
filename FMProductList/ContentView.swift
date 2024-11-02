@@ -10,7 +10,6 @@ import SwiftData
 
 struct ContentView: View {
     @State var isActive = false
-    
     var body: some View {
         VStack {
             if !isActive {
@@ -25,7 +24,7 @@ struct ContentView: View {
                 }
             } else {
                 withAnimation(.easeOut(duration: 2.0)) {
-                    MenuView()
+                     MenuView()
                         .accessibilityIdentifier("menuView")
                 }
             }
@@ -40,6 +39,6 @@ struct ContentView: View {
     }
 }
 
-#Preview {
-    ContentView()
-}
+//#Preview {
+//    ContentView()
+//}

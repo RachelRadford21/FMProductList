@@ -40,6 +40,4 @@ class ImageModel: Decodable {
         tablet = try container.decode(String.self, forKey: .tablet)
         desktop = try container.decode(String.self, forKey: .desktop)
     }
-    
-    
 }
