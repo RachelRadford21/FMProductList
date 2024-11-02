@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-class ItemModel: Decodable {
+class ItemModel: Codable {
     var image: ImageModel
     var name: String
     var category: String
@@ -41,7 +41,9 @@ class ItemModel: Decodable {
         category = try container.decode(String.self, forKey: .category)
         price = try container.decode(Double.self, forKey: .price)
     }
-    
+  func encode(to encoder: any Encoder) throws {
+   
+  }
     func decode(from decoder: Decoder) throws -> Self {
         try .init(from: decoder)
     }
