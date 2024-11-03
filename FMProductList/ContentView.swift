@@ -24,7 +24,7 @@ struct ContentView: View {
                 }
             } else {
                 withAnimation(.easeOut(duration: 2.0)) {
-                     MenuView()
+                    MenuView()
                         .accessibilityIdentifier("menuView")
                 }
             }

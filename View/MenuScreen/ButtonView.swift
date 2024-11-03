@@ -2,14 +2,15 @@
 //  ButtonView.swift
 //  FMProductList
 //
-//  Created by Rachel Radford on 10/26/24.
+////  Created by Rachel Radford on 10/26/24.
+////
 //
-
 import SwiftUI
 import SwiftData
 
 struct ButtonView: View {
     @Environment(\.modelContext) var context
+    var cartViewModel: OrderViewModel?
     var item: ItemModel
     var color: Color
     var backgroundColor: Color
@@ -20,8 +21,11 @@ struct ButtonView: View {
     @Binding var itemName: String
     @Binding var price: Double
     @State private var total: Double = 0
+    
+    
     public init(
         item: ItemModel = .init(image: ImageModel(), name: "", category: "", price: 0),
+        cartViewModel: OrderViewModel?,
         color: Color = .clear,
         backgroundColor: Color = .clear,
         defaultButtonOpacity: Double = 0,
@@ -32,6 +36,7 @@ struct ButtonView: View {
         price: Binding<Double> = .constant(0)
     ) {
         self.item = item
+        self.cartViewModel = cartViewModel
         self.color = color
         self.backgroundColor = backgroundColor
         self.defaultButtonOpacity = defaultButtonOpacity
@@ -92,7 +97,10 @@ extension ButtonView {
                 .overlay {
                     HStack {
                         countButton(imageName: "icon-decrement-quantity") {
-                            if count > 0 { count -= 1 }
+                            if count > 0 {
+                                count -= 1
+                                cartViewModel?.removeItem(itemName: itemName, count: count, price: price, total: total)
+                            }
                             if count == 0 {
                                 itemName = ""
                                 price = 0
@@ -121,7 +129,8 @@ extension ButtonView {
         Button {
             action?()
             total = price * Double(count)
-            orderTracker(name: itemName, count: count, price: price, total: total)
+            cartViewModel?.addItem(itemName: itemName, count: count, price: price, total: total)
+            
         } label: {
             Circle()
                 .strokeBorder(Color.white, lineWidth: 1)
@@ -131,22 +140,5 @@ extension ButtonView {
                 }
         }
     }
-    func orderTracker(name: String, count: Int, price: Double, total: Double) {
-        let order = OrderModel(itemName: name, quantity: count, price: price, total: total)
-        print("Order Details - Name: \(order.itemName), Quantity: \(order.quantity), Price: \(order.price), Total: \(order.total)")
-        context.insert(order)
-        
-        do {
-            // if order.hasChanges {
-            
-            try context.save()
-            // }
-            print("Order added successfully!")
-        } catch {
-            print("Failed to save order: \(error)")
-        }
-    }
 }
-#Preview {
-    ButtonView()
-}
+

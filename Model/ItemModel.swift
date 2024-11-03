@@ -41,9 +41,9 @@ class ItemModel: Codable {
         category = try container.decode(String.self, forKey: .category)
         price = try container.decode(Double.self, forKey: .price)
     }
-  func encode(to encoder: any Encoder) throws {
-   
-  }
+    func encode(to encoder: any Encoder) throws {
+        
+    }
     func decode(from decoder: Decoder) throws -> Self {
         try .init(from: decoder)
     }

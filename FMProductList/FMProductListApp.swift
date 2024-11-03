@@ -10,7 +10,8 @@ import SwiftData
 
 @main
 struct FMProductListApp: App {
-    let container = try! ModelContainer(for: ItemModel.self)
+    let container = try! ModelContainer(for: ItemModel.self, OrderModel.self)
+   
     let productLoader = ProductLoader()
     let dataImporter: DataImporter
     

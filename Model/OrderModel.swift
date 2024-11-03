@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-class OrderModel: Encodable {
+class OrderModel {
   var id: UUID
   var itemName: String
   var quantity: Int
@@ -17,7 +17,7 @@ class OrderModel: Encodable {
   var total: Double
   
   init(
-    id: UUID = .init(),
+    id: UUID = UUID(),
     itemName: String = "",
     quantity: Int = 0,
     price: Double = 0,
@@ -46,8 +46,4 @@ class OrderModel: Encodable {
     self.price = try container.decode(Double.self, forKey: .price)
     self.total = try container.decode(Double.self, forKey: .total)
   }
-    
-    func encode(to encoder: any Encoder) throws {
-            
-    }
 }
