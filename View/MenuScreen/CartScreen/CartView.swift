@@ -9,52 +9,70 @@ import SwiftUI
 import SwiftData
 
 struct CartView: View {
-    @Query var orders: [OrderModel] 
-    @Binding var count: Int
+    @Environment(\.modelContext) var context
+    @Query var orders: [OrderModel]
+    var order: OrderModel?
+    @State var totalItemCount: Int = 0
+    var orderVM: OrderViewModel?
     
     public init(
-        count: Binding<Int> = .constant(0)
+        order: OrderModel? = nil
     ) {
-        self._count = count
+        self.order = order
+      
     }
-    var body: some View {
-        VStack {
-            
-            if orders.isEmpty {
-                VStack(alignment: .center) {
-                    Text("Your Cart (\(orders.count))")
-                        .font(.custom("RedHatText-Bold", size: 25))
-                        .foregroundStyle(Color.buttonBackground)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.bottom, 50)
-                        .padding(.leading, 20)
-                    Image("illustration-empty-cart")
-                    Text("Your added Items will appear here.")
-                        .font(.custom("RedHatText-Bold", size: 12))
-                        .foregroundStyle(Color.catFontColor)
-                }
-            } else {
-                Text("Cart")
-                ForEach(orders, id: \.id) { item in
-                    VStack {
-                        Text("\(item.total, format: .currency(code: "USD") )")
-                            .font(.headline)
-                            .foregroundStyle(Color.black)
-                        Text("\(item.itemName)")
-                        
-                        Text("@ \(item.price)")
-                    }
-                }
-            }
-        }
-        .background(
-            RoundedRectangle(cornerRadius: 10)
-                .foregroundStyle(Color.white)
-                .frame(minWidth: 300, maxWidth: .infinity, minHeight: 300, maxHeight: .infinity)
-        )
+  
+  var body: some View {
+    VStack {
+      if orders.isEmpty {
+        emptyCartView
+      } else {
+        cartHeader
+        cartItems
+      }
     }
+    .background(
+      RoundedRectangle(cornerRadius: 10)
+        .foregroundStyle(Color.white)
+        .frame(minWidth: 300, maxWidth: .infinity, minHeight: 300, maxHeight: .infinity)
+    )
+  }
 }
 
-#Preview {
-    CartView()
+extension CartView {
+  var cartHeader: some View {
+    Text("Your Cart (\(totalItemCount))")
+      .font(.custom("RedHatText-Bold", size: 25))
+      .foregroundStyle(Color.buttonBackground)
+      .frame(maxWidth: .infinity, alignment: .leading)
+      .padding(.bottom, 50)
+      .padding(.leading, 20)
+  }
+  
+  var emptyCartView: some View {
+    VStack(alignment: .center) {
+      cartHeader
+      Image("illustration-empty-cart")
+      Text("Your added Items will appear here.")
+        .font(.custom("RedHatText-Bold", size: 12))
+        .foregroundStyle(Color.catFontColor)
+    }
+  }
+  
+  var cartItems: some View {
+    List {
+      ForEach(orders, id: \.id) { item in
+        VStack {
+          Text("\(item.itemName)")
+          HStack(spacing: 10) {
+            Text("\(item.quantity)x")
+            Text("@\(item.price, format: .currency(code: "USD"))")
+            Text("\(item.total, format: .currency(code: "USD"))")
+              .font(.headline)
+              .foregroundStyle(Color.black)
+          }
+        }
+      }
+    }
+  }
 }

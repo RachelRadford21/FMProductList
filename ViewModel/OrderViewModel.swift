@@ -20,7 +20,7 @@ struct OrderViewModel {
     
     func addItem(itemName: String, count: Int, price: Double, total: Double) {
         let newItem = OrderModel(id: UUID(), itemName: itemName, quantity: count, price: price, total: total)
-        print("Order Details - Name: \(newItem.itemName), Quantity: \(newItem.quantity), Price: \(newItem.price), Total: \(newItem.total)")
+//        print("Order Details - Name: \(newItem.itemName), Quantity: \(newItem.quantity), Price: \(newItem.price), Total: \(newItem.total)")
         
         context.insert(newItem)
         
@@ -31,14 +31,9 @@ struct OrderViewModel {
     func removeItem(itemName: String, count: Int, price: Double, total: Double) {
         let removeItem = OrderModel(id: UUID(), itemName: itemName, quantity: count, price: price, total: total)
         
-        print("Order Details - Name: \(removeItem.itemName), Quantity: \(removeItem.quantity), Price: \(removeItem.price), Total: \(removeItem.total)")
+//        print("Order Details - Name: \(removeItem.itemName), Quantity: \(removeItem.quantity), Price: \(removeItem.price), Total: \(removeItem.total)")
         
         context.delete(removeItem)
-        saveContext()
-    }
-    
-    func updateItem(_ item: OrderModel, quantity: Int) {
-        item.quantity = quantity
         saveContext()
     }
     
@@ -46,7 +41,7 @@ struct OrderViewModel {
         do {
             try context.save()
         } catch {
-            print("Failed to save context: \(error)")
+          //  print("Failed to save context: \(error)")
         }
     }
 }

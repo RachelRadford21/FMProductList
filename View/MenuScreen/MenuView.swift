@@ -41,7 +41,7 @@ struct MenuView: View {
                 ScrollView {
                     VStack {
                         ForEach(products, id: \.self) { item in
-                            ProductItemView(item: item, cartViewModel: OrderViewModel(context: context))
+                            ProductItemView(item: item, orderVM: OrderViewModel(context: context))
                         }
                         Spacer(minLength: 60)
                         CartView()

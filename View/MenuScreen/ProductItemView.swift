@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ProductItemView: View {
     let item: ItemModel
-    var cartViewModel: OrderViewModel
+    var orderVM: OrderViewModel
     @State private var addToCart: Bool = false
     @State private var count: Int = 0
     @State private var itemName: String = ""
@@ -17,10 +17,10 @@ struct ProductItemView: View {
     
     public init(
         item: ItemModel = .init(image: ImageModel(), name: "", category: "", price: 0),
-        cartViewModel: OrderViewModel
+        orderVM: OrderViewModel 
     ) {
         self.item = item
-        self.cartViewModel = cartViewModel
+        self.orderVM = orderVM
     }
     
     var body: some View {
@@ -36,7 +36,7 @@ extension ProductItemView {
                 .overlay(alignment: .bottom) {
                     ButtonView(
                         item: item,
-                        cartViewModel: cartViewModel,
+                        orderVM: orderVM,
                         color: addToCart ? Color.clear : Color.black.opacity(0.5),
                         backgroundColor: addToCart ? Color.buttonBackground : Color.white,
                         defaultButtonOpacity: addToCart ? 0 : 1,

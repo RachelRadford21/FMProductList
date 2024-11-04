@@ -10,7 +10,9 @@ import SwiftData
 
 struct ButtonView: View {
     @Environment(\.modelContext) var context
-    var cartViewModel: OrderViewModel?
+    @Query var orders: [OrderModel]
+    var order: OrderModel
+    var orderVM: OrderViewModel?
     var item: ItemModel
     var color: Color
     var backgroundColor: Color
@@ -18,35 +20,38 @@ struct ButtonView: View {
     var countButtonOpacity: Double
     @Binding var count: Int
     @Binding var addToCart: Bool
-    @Binding var itemName: String
-    @Binding var price: Double
-    @State private var total: Double = 0
-    
-    
-    public init(
-        item: ItemModel = .init(image: ImageModel(), name: "", category: "", price: 0),
-        cartViewModel: OrderViewModel?,
-        color: Color = .clear,
-        backgroundColor: Color = .clear,
-        defaultButtonOpacity: Double = 0,
-        countButtonOpacity: Double = 0,
-        count: Binding<Int> = .constant(0),
-        addToCart: Binding<Bool> = .constant(false),
-        itemName: Binding<String> = .constant(""),
-        price: Binding<Double> = .constant(0)
-    ) {
-        self.item = item
-        self.cartViewModel = cartViewModel
-        self.color = color
-        self.backgroundColor = backgroundColor
-        self.defaultButtonOpacity = defaultButtonOpacity
-        self.countButtonOpacity = countButtonOpacity
-        self._count = count
-        self._addToCart = addToCart
-        self._itemName = itemName
-        self._price = price
-    }
-    var body: some View {
+  @Binding var itemName: String
+  @Binding var price: Double
+  @State private var total: Double = 0
+  @Binding var totalItemCount: Int
+  public init(
+    order: OrderModel = .init(itemName: "", quantity: 0, price: 0, total: 0),
+    item: ItemModel = .init(image: ImageModel(), name: "", category: "", price: 0),
+    orderVM: OrderViewModel?,
+    color: Color = .clear,
+    backgroundColor: Color = .clear,
+    defaultButtonOpacity: Double = 0,
+    countButtonOpacity: Double = 0,
+    count: Binding<Int> = .constant(0),
+    addToCart: Binding<Bool> = .constant(false),
+    itemName: Binding<String> = .constant(""),
+    price: Binding<Double> = .constant(0),
+    totalItemCount: Binding<Int> = .constant(0)
+  ) {
+    self.order = order
+    self.item = item
+    self.orderVM = orderVM
+    self.color = color
+    self.backgroundColor = backgroundColor
+    self.defaultButtonOpacity = defaultButtonOpacity
+    self.countButtonOpacity = countButtonOpacity
+    self._count = count
+    self._addToCart = addToCart
+    self._itemName = itemName
+    self._price = price
+    self._totalItemCount = totalItemCount
+  }
+  var body: some View {
         buttonView
     }
 }
@@ -67,11 +72,7 @@ extension ButtonView {
         Button {
             addToCart.toggle()
         } label: {
-            Capsule(style: .continuous)
-                .strokeBorder(Color.black.opacity(0.5))
-                .frame(width: 155, height: 40)
-                .background(.white)
-                .clipShape(RoundedRectangle(cornerRadius: 25))
+          buttonLabelView
                 .overlay {
                     HStack(spacing: 5) {
                         Image("icon-add-to-cart")
@@ -89,17 +90,14 @@ extension ButtonView {
         Button {
             addToCart.toggle()
         } label: {
-            Capsule(style: .continuous)
-                .strokeBorder(color)
-                .frame(width: 155, height: 40)
-                .background(backgroundColor)
-                .clipShape(RoundedRectangle(cornerRadius: 25))
+          buttonLabelView
                 .overlay {
                     HStack {
                         countButton(imageName: "icon-decrement-quantity") {
                             if count > 0 {
                                 count -= 1
-                                cartViewModel?.removeItem(itemName: itemName, count: count, price: price, total: total)
+                                orderVM?.removeItem(itemName: itemName, count: count, price: price, total: total)
+
                             }
                             if count == 0 {
                                 itemName = ""
@@ -116,6 +114,8 @@ extension ButtonView {
                             count += 1
                             itemName = item.name
                             price = item.price
+              
+                        
                         }
                     }
                     .padding(.horizontal, 12)
@@ -124,13 +124,20 @@ extension ButtonView {
         }
         .accessibilityIdentifier("cartCountButton")
     }
+  
+  var buttonLabelView: some View {
+    Capsule(style: .continuous)
+        .strokeBorder(color)
+        .frame(width: 155, height: 40)
+        .background(backgroundColor)
+        .clipShape(RoundedRectangle(cornerRadius: 25))
+  }
     
     func countButton(imageName: String, action: (() -> Void)? ) ->  some View {
         Button {
             action?()
             total = price * Double(count)
-            cartViewModel?.addItem(itemName: itemName, count: count, price: price, total: total)
-            
+            orderVM?.addItem(itemName: itemName, count: count, price: price, total: total)
         } label: {
             Circle()
                 .strokeBorder(Color.white, lineWidth: 1)
@@ -140,5 +147,6 @@ extension ButtonView {
                 }
         }
     }
+ 
 }
 
