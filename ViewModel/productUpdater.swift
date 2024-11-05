@@ -8,6 +8,6 @@
 import Foundation
 
 class productUpdater: ObservableObject {
-  @Published var count: Int = 0
-
+  @Published var cartCount: Int = 0
+  
 }

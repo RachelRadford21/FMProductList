@@ -10,26 +10,27 @@ import SwiftData
 
 @main
 struct FMProductListApp: App {
-    let container = try! ModelContainer(for: ItemModel.self, OrderModel.self)
-   
-    let productLoader = ProductLoader()
-    let dataImporter: DataImporter
-    
-    init() {
-      self.dataImporter = DataImporter(context: container.mainContext, loader: productLoader)
-    }
-    
-    var body: some Scene {
-        WindowGroup {
-          ContentView()
-                .task {
-                    do {
-                       try await dataImporter.importData()
-                    } catch {
-                        print(error)
-                    }
-                }
+  let container = try! ModelContainer(for: ItemModel.self, OrderModel.self)
+  @StateObject var updater: productUpdater = productUpdater()
+  let productLoader = ProductLoader()
+  let dataImporter: DataImporter
+  
+  init() {
+    self.dataImporter = DataImporter(context: container.mainContext, loader: productLoader)
+  }
+  
+  var body: some Scene {
+    WindowGroup {
+      ContentView()
+        .environmentObject(updater)
+        .task {
+          do {
+            try await dataImporter.importData()
+          } catch {
+            print(error)
+          }
         }
-        .modelContainer(container)
     }
+    .modelContainer(container)
+  }
 }

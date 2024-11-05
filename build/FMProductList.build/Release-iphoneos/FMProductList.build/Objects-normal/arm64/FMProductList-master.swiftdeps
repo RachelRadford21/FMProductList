@@ -1,0 +1,21 @@
+version: "Apple Swift version 6.0.2 (swiftlang-6.0.2.1.2 clang-1600.0.26.4)"
+options: "855aa5289cce28b32e4d9f3282e41b0ca51afd54cc37a1b705e3a9e88a60f0f0"
+build_start_time: [1730687922, 753693000]
+build_end_time: [1730687926, 221570000]
+inputs:
+  "/Users/rachelradford/Documents/FMProductList/FMProductList/ContentView.swift": !dirty [1730687565, 182152742]
+  "/Users/rachelradford/Documents/FMProductList/FMProductList/FMProductListApp.swift": !dirty [1730656993, 0]
+  "/Users/rachelradford/Documents/FMProductList/HelperFiles/GlobalExtensions/ColorExtension.swift": !dirty [1730659647, 0]
+  "/Users/rachelradford/Documents/FMProductList/Model/ImageModel.swift": !dirty [1730655916, 0]
+  "/Users/rachelradford/Documents/FMProductList/Model/ItemModel.swift": !dirty [1730656609, 0]
+  "/Users/rachelradford/Documents/FMProductList/Model/OrderModel.swift": !dirty [1730670951, 0]
+  "/Users/rachelradford/Documents/FMProductList/View/MenuScreen/ButtonView.swift": !dirty [1730687431, 965141571]
+  "/Users/rachelradford/Documents/FMProductList/View/MenuScreen/CartScreen/CartView.swift": !dirty [1730687138, 548030281]
+  "/Users/rachelradford/Documents/FMProductList/View/MenuScreen/MainHeaderView.swift": !dirty [1730656655, 0]
+  "/Users/rachelradford/Documents/FMProductList/View/MenuScreen/MenuView.swift": !dirty [1730687812, 111142216]
+  "/Users/rachelradford/Documents/FMProductList/View/MenuScreen/ProductItemView.swift": !dirty [1730687867, 641798784]
+  "/Users/rachelradford/Documents/FMProductList/ViewModel/DataImporter.swift": !dirty [1730659890, 0]
+  "/Users/rachelradford/Documents/FMProductList/ViewModel/OrderViewModel.swift": !dirty [1730683064, 872204821]
+  "/Users/rachelradford/Documents/FMProductList/ViewModel/ProductLoader.swift": !dirty [1730656609, 0]
+  ? "/Users/rachelradford/Documents/FMProductList/build/FMProductList.build/Release-iphoneos/FMProductList.build/DerivedSources/GeneratedAssetSymbols.swift"
+  : !dirty [1730687922, 460151242]

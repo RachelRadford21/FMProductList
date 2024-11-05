@@ -9,18 +9,17 @@ import SwiftUI
 import SwiftData
 
 struct CartView: View {
-    @Environment(\.modelContext) var context
-    @Query var orders: [OrderModel]
-    var order: OrderModel?
-    @State var totalItemCount: Int = 0
-    var orderVM: OrderViewModel?
-    
-    public init(
-        order: OrderModel? = nil
-    ) {
-        self.order = order
-      
-    }
+  @Environment(\.modelContext) var context
+  @EnvironmentObject var updater: productUpdater
+  @Query var orders: [OrderModel]
+  var order: OrderModel?
+  var orderVM: OrderViewModel?
+  
+  public init(
+    order: OrderModel? = nil
+  ) {
+    self.order = order
+  }
   
   var body: some View {
     VStack {
@@ -41,7 +40,7 @@ struct CartView: View {
 
 extension CartView {
   var cartHeader: some View {
-    Text("Your Cart (\(totalItemCount))")
+    Text("Your Cart (\(updater.cartCount))")
       .font(.custom("RedHatText-Bold", size: 25))
       .foregroundStyle(Color.buttonBackground)
       .frame(maxWidth: .infinity, alignment: .leading)
@@ -60,17 +59,15 @@ extension CartView {
   }
   
   var cartItems: some View {
-    List {
-      ForEach(orders, id: \.id) { item in
-        VStack {
-          Text("\(item.itemName)")
-          HStack(spacing: 10) {
-            Text("\(item.quantity)x")
-            Text("@\(item.price, format: .currency(code: "USD"))")
-            Text("\(item.total, format: .currency(code: "USD"))")
-              .font(.headline)
-              .foregroundStyle(Color.black)
-          }
+    ForEach(orders, id: \.id) { item in
+      VStack {
+        Text("\(item.itemName)")
+        HStack(spacing: 10) {
+          Text("\(item.quantity)x")
+          Text("@\(item.price, format: .currency(code: "USD"))")
+          Text("\(item.total, format: .currency(code: "USD"))")
+            .font(.headline)
+            .foregroundStyle(Color.black)
         }
       }
     }
