@@ -10,7 +10,7 @@ import SwiftData
 
 struct ButtonView: View {
   @Environment(\.modelContext) var context
-  @EnvironmentObject var updater: productUpdater
+  @EnvironmentObject var updater: ProductUpdater
   @Query var orders: [OrderModel]
   var order: OrderModel
   var orderVM: OrderViewModel?
@@ -95,13 +95,13 @@ extension ButtonView {
               if count > 0 {
                 count -= 1
                 orderVM?.removeItem(itemName: itemName, count: count, price: price, total: total)
-                updater.cartCount -= 1
-                
+                updater.cartTotalCount -= 1
+                //item.name = itemName
               }
               if count == 0 {
                 itemName = ""
                 price = 0
-                
+               
               }
             }
             Spacer()
@@ -114,7 +114,9 @@ extension ButtonView {
               count += 1
               itemName = item.name
               price = item.price
-              updater.cartCount += 1
+              updater.cartTotalCount += 1
+             
+            //  updater.cartQuantity =
             }
           }
           .padding(.horizontal, 12)
@@ -137,7 +139,6 @@ extension ButtonView {
       action?()
       total = price * Double(count)
       orderVM?.addItem(itemName: itemName, count: count, price: price, total: total)
-      print("totalCount \(updater.cartCount)")
     } label: {
       Circle()
         .strokeBorder(Color.white, lineWidth: 1)

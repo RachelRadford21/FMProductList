@@ -10,7 +10,7 @@ import SwiftUI
 struct ProductItemView: View {
   let item: ItemModel
   var orderVM: OrderViewModel
-  @EnvironmentObject var updater: productUpdater
+  @EnvironmentObject var updater: ProductUpdater
   @State private var addToCart: Bool = false
   @State private var count: Int = 0
   @State private var itemName: String = ""

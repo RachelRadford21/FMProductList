@@ -10,7 +10,7 @@ import SwiftData
 
 struct MenuView: View {
   @Environment(\.modelContext) var context
-  @State var cartViewModel: OrderViewModel? = nil
+  @State var orderVM: OrderViewModel? = nil
   @Query var products: [ItemModel]
   let loader: ProductLoader = ProductLoader()
   

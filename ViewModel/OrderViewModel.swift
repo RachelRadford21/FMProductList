@@ -12,7 +12,7 @@ import SwiftData
 struct OrderViewModel {
     var context: ModelContext
     let container = try! ModelContainer(for: OrderModel.self)
-   
+    
     init(
         context: ModelContext
     ) {
@@ -21,20 +21,17 @@ struct OrderViewModel {
     
     func addItem(itemName: String, count: Int, price: Double, total: Double) {
         let newItem = OrderModel(id: UUID(), itemName: itemName, quantity: count, price: price, total: total)
-//        print("Order Details - Name: \(newItem.itemName), Quantity: \(newItem.quantity), Price: \(newItem.price), Total: \(newItem.total)")
         
         context.insert(newItem)
         
         saveContext()
-        
     }
     
     func removeItem(itemName: String, count: Int, price: Double, total: Double) {
         let removeItem = OrderModel(id: UUID(), itemName: itemName, quantity: count, price: price, total: total)
-        
-//        print("Order Details - Name: \(removeItem.itemName), Quantity: \(removeItem.quantity), Price: \(removeItem.price), Total: \(removeItem.total)")
-        
+      
         context.delete(removeItem)
+        
         saveContext()
     }
     
@@ -42,7 +39,7 @@ struct OrderViewModel {
         do {
             try context.save()
         } catch {
-          //  print("Failed to save context: \(error)")
+            print("Failed to save context: \(error)")
         }
     }
 }

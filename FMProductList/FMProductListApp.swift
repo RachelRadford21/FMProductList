@@ -11,7 +11,7 @@ import SwiftData
 @main
 struct FMProductListApp: App {
   let container = try! ModelContainer(for: ItemModel.self, OrderModel.self)
-  @StateObject var updater: productUpdater = productUpdater()
+  @StateObject var updater: ProductUpdater = ProductUpdater()
   let productLoader = ProductLoader()
   let dataImporter: DataImporter
   
