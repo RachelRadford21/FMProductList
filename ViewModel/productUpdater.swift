@@ -1,5 +1,5 @@
 //
-//  productUpdater.swift
+//  ProductUpdater.swift
 //  FMProductList
 //
 //  Created by Rachel Radford on 11/4/24.
@@ -7,7 +7,9 @@
 
 import Foundation
 
-class productUpdater: ObservableObject {
-  @Published var cartCount: Int = 0
+class ProductUpdater: ObservableObject {
+  // the total shown at top of cartview
+    // Kinda wasteful but works well. Might delete or add other vars here??
+  @Published var cartTotalCount: Int = 0
   
 }
