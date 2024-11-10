@@ -94,15 +94,13 @@ extension ButtonView {
             countButton(imageName: "icon-decrement-quantity") {
               if count > 0 {
                 count -= 1
-                orderVM?.removeItem(itemName: itemName, count: count, price: price, total: total)
                 updater.cartTotalCount -= 1
-                //item.name = itemName
-              }
-              if count == 0 {
+              } else if count == 0 {
                 itemName = ""
                 price = 0
                
               }
+                orderVM?.removeItem(itemName: itemName, count: count, price: price, total: total)
             }
             Spacer()
             Text("\(count)")
@@ -112,11 +110,11 @@ extension ButtonView {
             Spacer()
             countButton(imageName: "icon-increment-quantity") {
               count += 1
+            
               itemName = item.name
               price = item.price
               updater.cartTotalCount += 1
-             
-            //  updater.cartQuantity =
+               
             }
           }
           .padding(.horizontal, 12)
@@ -137,6 +135,7 @@ extension ButtonView {
   func countButton(imageName: String, action: (() -> Void)? ) ->  some View {
     Button {
       action?()
+        
       total = price * Double(count)
       orderVM?.addItem(itemName: itemName, count: count, price: price, total: total)
     } label: {

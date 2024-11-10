@@ -81,7 +81,7 @@ extension ProductItemView {
   }
   
   var productInfo: some View {
-    VStack(alignment: .leading) {
+      VStack(alignment: .leading, spacing: 5) {
       Text(item.category)
         .font(.custom("RedHatText-SemiBold", size: 10))
         .foregroundStyle(Color.catFontColor.opacity(0.7))
