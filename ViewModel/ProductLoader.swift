@@ -15,10 +15,6 @@ struct ProductLoader {
         let (data, response) = try await URLSession.shared.data(from: url)
         guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else { return [] }
         let items = try JSONDecoder().decode([ItemModel].self, from: data)
-        
-        DispatchQueue.main.async {
-           
-        }
-        return items 
+        return items
     }
 }

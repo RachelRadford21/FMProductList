@@ -17,20 +17,22 @@ struct CartView: View {
   @State private var groupedOrders: [String: OrderModel] = [:]
   @State private var shouldShowItem: Bool = true
   
-  
   var body: some View {
-    VStack {
+    VStack(alignment: .leading, spacing: 5) {
       if updater.cartTotalCount == 0 {
         emptyCartView
       } else {
-        cartHeader
-        cartOrders
+        VStack(alignment: .leading, spacing: 15) {
+          cartHeader
+          cartOrders
+          cartTotalTextView
+        }
+        .padding(.vertical, 5)
+        .padding(.leading, 50)
       }
     }
     .background(
-      RoundedRectangle(cornerRadius: 10)
-        .foregroundStyle(Color.white)
-        .frame(minWidth: 300, maxWidth: .infinity, minHeight: 300, maxHeight: .infinity)
+      backgroundRectangleView
     )
     .onAppear {
       groupOrdersByProduct()
@@ -43,15 +45,6 @@ struct CartView: View {
 
 extension CartView {
   
-  var cartHeader: some View {
-    Text("Your Cart (\(updater.cartTotalCount))")
-      .font(.custom("RedHatText-Bold", size: 25))
-      .foregroundStyle(Color.buttonBackground)
-      .frame(maxWidth: .infinity, alignment: .leading)
-      .padding(.bottom, 50)
-      .padding(.leading, 20)
-  }
-  
   var emptyCartView: some View {
     VStack(alignment: .center) {
       cartHeader
@@ -62,12 +55,46 @@ extension CartView {
     }
   }
   
+  var cartHeader: some View {
+    Text("Your Cart (\(updater.cartTotalCount))")
+      .font(.custom("RedHatText-Bold", size: 25))
+      .foregroundStyle(Color.buttonBackground)
+      .frame(maxWidth: .infinity, alignment: .leading)
+  }
+  
   var cartOrders: some View {
     ForEach(Array(groupedOrders.values), id: \.id) { order in
-      VStack(alignment: .leading, spacing: 5) {
+      VStack(alignment: .leading) {
         CartItemView(itemName: order.itemName, quantity: order.quantity, price: order.price, total: order.total)
       }
+        dividerView
     }
+  }
+  
+  var dividerView: some View {
+    Divider()
+      .foregroundStyle(Color.catFontColor)
+      .brightness(-0.2)
+      .padding(.horizontal)
+  }
+  
+  var cartTotalTextView: some View {
+    HStack(spacing: 60) {
+      Text("Order Total ")
+        .font(.custom("RedHatText-Bold", size: 16))
+        .foregroundStyle(Color.catFontColor)
+      
+      Text("\(updater.cartTotalCount)")
+        .font(.custom("RedHatText-Bold", size: 20))
+        .foregroundStyle(Color.catFontColor)
+        .brightness(-0.2)
+   }
+  }
+  
+  var backgroundRectangleView: some View {
+    RoundedRectangle(cornerRadius: 10)
+      .foregroundStyle(Color.white)
+      .frame(minWidth: 300, maxWidth: .infinity, minHeight: 300, maxHeight: .infinity)
   }
   
   private func groupOrdersByProduct() {
