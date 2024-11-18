@@ -10,11 +10,11 @@ import SwiftData
 
 @Model
 class OrderModel {
-  var id: UUID
-  var itemName: String
-  var quantity: Int
-  var price: Double
-  var total: Double
+ @Attribute var id: UUID
+ @Attribute var itemName: String
+ @Attribute var quantity: Int
+ @Attribute var price: Double
+ @Attribute var total: Double
   
   init(
     id: UUID = UUID(),

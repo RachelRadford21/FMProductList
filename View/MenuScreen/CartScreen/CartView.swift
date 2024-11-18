@@ -13,7 +13,7 @@ struct CartView: View {
   @EnvironmentObject var updater: ProductUpdater
   
   @Query var orders: [OrderModel]
-  
+   
   @State private var groupedOrders: [String: OrderModel] = [:]
   @State private var shouldShowItem: Bool = true
   
@@ -65,17 +65,9 @@ extension CartView {
   var cartOrders: some View {
     ForEach(Array(groupedOrders.values), id: \.id) { order in
       VStack(alignment: .leading) {
-        CartItemView(itemName: order.itemName, quantity: order.quantity, price: order.price, total: order.total)
+              CartItemView(itemName: order.itemName, quantity: order.quantity, price: order.price, total: order.total)
       }
-        dividerView
     }
-  }
-  
-  var dividerView: some View {
-    Divider()
-      .foregroundStyle(Color.catFontColor)
-      .brightness(-0.2)
-      .padding(.horizontal)
   }
   
   var cartTotalTextView: some View {

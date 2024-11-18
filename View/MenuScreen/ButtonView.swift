@@ -24,6 +24,7 @@ struct ButtonView: View {
   @Binding var itemName: String
   @Binding var price: Double
   @State private var total: Double = 0
+  
   public init(
     order: OrderModel = .init(itemName: "", quantity: 0, price: 0, total: 0),
     item: ItemModel = .init(image: ImageModel(), name: "", category: "", price: 0),
@@ -94,13 +95,14 @@ extension ButtonView {
             countButton(imageName: "icon-decrement-quantity") {
               if count > 0 {
                 count -= 1
+                
                 updater.cartTotalCount -= 1
               } else if count == 0 {
                 itemName = ""
                 price = 0
-               
-              }
                 orderVM?.removeItem(itemName: itemName, count: count, price: price, total: total)
+              }
+              orderVM?.removeItem(itemName: itemName, count: count, price: price, total: total)
             }
             Spacer()
             Text("\(count)")
@@ -110,11 +112,9 @@ extension ButtonView {
             Spacer()
             countButton(imageName: "icon-increment-quantity") {
               count += 1
-            
               itemName = item.name
               price = item.price
               updater.cartTotalCount += 1
-               
             }
           }
           .padding(.horizontal, 12)
@@ -135,7 +135,15 @@ extension ButtonView {
   func countButton(imageName: String, action: (() -> Void)? ) ->  some View {
     Button {
       action?()
-        
+      if count == 0 {
+        do {
+          try  context.delete(model: OrderModel.self, where: #Predicate { order in
+            order.itemName == item.name
+          })
+        } catch {
+          print("error: \(error)")
+        }
+      }
       total = price * Double(count)
       orderVM?.addItem(itemName: itemName, count: count, price: price, total: total)
     } label: {
