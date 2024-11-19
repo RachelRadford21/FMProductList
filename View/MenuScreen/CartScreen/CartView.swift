@@ -13,28 +13,28 @@ struct CartView: View {
   @EnvironmentObject var updater: ProductUpdater
   
   @Query var orders: [OrderModel]
-   
+  
   @State private var groupedOrders: [String: OrderModel] = [:]
   @State private var shouldShowItem: Bool = true
   
   var body: some View {
     VStack(alignment: .leading, spacing: 15) {
-    CartHeaderView()
-    if updater.cartTotalCount == 0 {
-      emptyCartImageView
-    } else {
-      cartOrderView
-      .onAppear {
-        groupOrdersByProduct()
-      }
-      .onChange(of: orders) {
-        groupOrdersByProduct()
+      CartHeaderView()
+      if updater.cartTotalCount == 0 {
+        emptyCartImageView
+      } else {
+        cartOrderView
+          .onAppear {
+            groupOrdersByProduct()
+          }
+          .onChange(of: orders) {
+            groupOrdersByProduct()
+          }
       }
     }
-  }
     .frame(width: 350)
     .frame(maxWidth: .infinity, minHeight: 300, maxHeight: .infinity, alignment: .leading)
-  .background(
+    .background(
       RoundedRectangle(cornerRadius: 20)
         .foregroundStyle(Color.white)
         .opacity(0.6)
@@ -61,11 +61,12 @@ extension CartView {
     }
     .padding(.leading, 20)
   }
+  
   var cartOrders: some View {
     ForEach(Array(groupedOrders.values), id: \.id) { order in
-        CartItemView(itemName: order.itemName, quantity: order.quantity, price: order.price, total: order.total)
+      CartItemView(itemName: order.itemName, quantity: order.quantity, price: order.price, total: order.total)
         .frame(maxWidth: .infinity, alignment: .leading)
-      }
+    }
   }
   
   var cartTotalTextView: some View {

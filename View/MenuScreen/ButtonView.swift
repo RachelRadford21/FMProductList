@@ -11,8 +11,6 @@ import SwiftData
 struct ButtonView: View {
   @Environment(\.modelContext) var context
   @EnvironmentObject var updater: ProductUpdater
-  @Query var orders: [OrderModel]
-  var order: OrderModel
   var orderVM: OrderViewModel?
   var item: ItemModel
   var color: Color
@@ -26,7 +24,6 @@ struct ButtonView: View {
   @State private var total: Double = 0
   
   public init(
-    order: OrderModel = .init(itemName: "", quantity: 0, price: 0, total: 0),
     item: ItemModel = .init(image: ImageModel(), name: "", category: "", price: 0),
     orderVM: OrderViewModel?,
     color: Color = .clear,
@@ -38,7 +35,6 @@ struct ButtonView: View {
     itemName: Binding<String> = .constant(""),
     price: Binding<Double> = .constant(0)
   ) {
-    self.order = order
     self.item = item
     self.orderVM = orderVM
     self.color = color
@@ -93,16 +89,7 @@ extension ButtonView {
         .overlay {
           HStack {
             countButton(imageName: "icon-decrement-quantity") {
-              if count > 0 {
-                count -= 1
-                
-                updater.cartTotalCount -= 1
-              } else if count == 0 {
-                itemName = ""
-                price = 0
-                orderVM?.removeItem(itemName: itemName, count: count, price: price, total: total)
-              }
-              orderVM?.removeItem(itemName: itemName, count: count, price: price, total: total)
+              subtractValues()
             }
             Spacer()
             Text("\(count)")
@@ -111,10 +98,7 @@ extension ButtonView {
               .accessibilityIdentifier("countLabel")
             Spacer()
             countButton(imageName: "icon-increment-quantity") {
-              count += 1
-              itemName = item.name
-              price = item.price
-              updater.cartTotalCount += 1
+              addValues()
             }
           }
           .padding(.horizontal, 12)
@@ -154,6 +138,26 @@ extension ButtonView {
           Image(imageName)
         }
     }
+  }
+  
+  func subtractValues() {
+    if count > 0 {
+      count -= 1
+      
+      updater.cartTotalCount -= 1
+    } else if count == 0 {
+      itemName = ""
+      price = 0
+      orderVM?.removeItem(itemName: itemName, count: count, price: price, total: total)
+    }
+    orderVM?.removeItem(itemName: itemName, count: count, price: price, total: total)
+  }
+  
+  func addValues() {
+    count += 1
+    itemName = item.name
+    price = item.price
+    updater.cartTotalCount += 1
   }
 }
 
