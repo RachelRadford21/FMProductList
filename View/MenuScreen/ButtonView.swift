@@ -119,17 +119,7 @@ extension ButtonView {
   func countButton(imageName: String, action: (() -> Void)? ) ->  some View {
     Button {
       action?()
-      if count == 0 {
-        do {
-          try  context.delete(model: OrderModel.self, where: #Predicate { order in
-            order.itemName == item.name
-          })
-        } catch {
-          print("error: \(error)")
-        }
-      }
-      total = price * Double(count)
-      orderVM?.addItem(itemName: itemName, count: count, price: price, total: total)
+      neutralCount()
     } label: {
       Circle()
         .strokeBorder(Color.white, lineWidth: 1)
@@ -139,25 +129,42 @@ extension ButtonView {
         }
     }
   }
-  
+  func neutralCount() {
+    total = price * Double(count)
+    orderVM?.addItem(itemName: itemName, count: count, price: price, total: total)
+    if count == 0 {
+      do {
+        try  context.delete(model: OrderModel.self, where: #Predicate { order in
+          order.itemName == item.name
+        })
+      } catch {
+        print("error: \(error)")
+      }
+    }
+  }
   func subtractValues() {
     if count > 0 {
       count -= 1
-      
       updater.cartTotalCount -= 1
+     
     } else if count == 0 {
       itemName = ""
       price = 0
       orderVM?.removeItem(itemName: itemName, count: count, price: price, total: total)
     }
     orderVM?.removeItem(itemName: itemName, count: count, price: price, total: total)
+    updater.orderTotal -= price
   }
   
   func addValues() {
     count += 1
     itemName = item.name
     price = item.price
+    // This doesnt work as expected here but works in neutral() ??
+  //  orderVM?.addItem(itemName: itemName, count: count, price: price, total: total)
     updater.cartTotalCount += 1
+    updater.orderTotal += price
+   
   }
 }
 

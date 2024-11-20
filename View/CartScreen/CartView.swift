@@ -11,13 +11,18 @@ import SwiftData
 struct CartView: View {
   @Environment(\.modelContext) var context
   @EnvironmentObject var updater: ProductUpdater
-  
   @Query var orders: [OrderModel]
-  
   @State private var groupedOrders: [String: OrderModel] = [:]
   @State private var shouldShowItem: Bool = true
   
   var body: some View {
+    fullCartView
+  }
+}
+
+extension CartView {
+  
+  var fullCartView: some View {
     VStack(alignment: .leading, spacing: 15) {
       CartHeaderView()
       if updater.cartTotalCount == 0 {
@@ -40,9 +45,6 @@ struct CartView: View {
         .opacity(0.6)
     )
   }
-}
-
-extension CartView {
   
   var emptyCartImageView: some View {
     VStack(alignment: .center) {
@@ -72,11 +74,11 @@ extension CartView {
   var cartTotalTextView: some View {
     HStack {
       Text("Order Total ")
-        .font(.custom("RedHatText-Bold", size: 16))
+        .font(.custom("RedHatText-Bold", size: 15))
         .foregroundStyle(Color.catFontColor)
-      
-      Text("\(updater.cartTotalCount)")
-        .font(.custom("RedHatText-Bold", size: 20))
+      Spacer()
+      Text("$\(updater.orderTotal, specifier: "%.2f")")
+        .font(.custom("RedHatText-Bold", size: 25))
         .foregroundStyle(Color.catFontColor)
         .brightness(-0.2)
     }

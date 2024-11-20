@@ -15,7 +15,7 @@ struct CartHeaderView: View {
       .font(.custom("RedHatText-Bold", size: 25))
       .foregroundStyle(Color.buttonBackground)
       .frame(maxWidth: .infinity, alignment: .leading)
-      .padding(.leading, 20)
+      .padding([.top, .leading], 20)
   }
 }
 

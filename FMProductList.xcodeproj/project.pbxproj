@@ -170,7 +170,6 @@
 				ABD35C972CEC002B000BABD6 /* MainHeaderView.swift */,
 				ABD35C992CEC002B000BABD6 /* ProductItemView.swift */,
 				ABD35C962CEC002B000BABD6 /* ButtonView.swift */,
-				ABD35C952CEC002B000BABD6 /* CartScreen */,
 			);
 			path = MenuScreen;
 			sourceTree = "<group>";
@@ -179,6 +178,7 @@
 			isa = PBXGroup;
 			children = (
 				ABD35C9A2CEC002B000BABD6 /* MenuScreen */,
+				ABD35C952CEC002B000BABD6 /* CartScreen */,
 			);
 			path = View;
 			sourceTree = "<group>";
