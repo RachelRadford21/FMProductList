@@ -14,6 +14,13 @@ struct CartView: View {
   @Query var orders: [OrderModel]
   @State private var groupedOrders: [String: OrderModel] = [:]
   @State private var shouldShowItem: Bool = true
+  var orderVM: OrderViewModel?
+  
+  public init(
+    orderVM: OrderViewModel?
+  ) {
+    self.orderVM = orderVM
+  }
   
   var body: some View {
     fullCartView
@@ -60,6 +67,7 @@ extension CartView {
     VStack {
       cartOrders
       cartTotalTextView
+      CarbonNeutralView()
     }
     .padding(.leading, 20)
   }
@@ -68,6 +76,7 @@ extension CartView {
     ForEach(Array(groupedOrders.values), id: \.id) { order in
       CartItemView(itemName: order.itemName, quantity: order.quantity, price: order.price, total: order.total)
         .frame(maxWidth: .infinity, alignment: .leading)
+      
     }
   }
   
@@ -94,7 +103,6 @@ extension CartView {
         existingOrder.total = order.total
       } else {
         groupedOrders[order.itemName] = order
-        
       }
     }
   }

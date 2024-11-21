@@ -15,32 +15,41 @@ struct MenuView: View {
   let loader: ProductLoader = ProductLoader()
   
   var body: some View {
+    menuView
+  }
+}
+
+extension MenuView {
+  var menuView: some View {
     ZStack {
       Color.launchScreenBackground.ignoresSafeArea()
       
       VStack(alignment: .leading) {
         MainHeaderView()
-        
-        ScrollView {
-          VStack {
-            ForEach(products, id: \.self) { item in
-              ProductItemView(item: item, orderVM: OrderViewModel(context: context))
+        menuScrollView
+          .refreshable {
+            Task {
+              try await loader.fetchProducts()
             }
-            Spacer(minLength: 60)
-            CartView()
-            Spacer(minLength: 100)
           }
-        }
-        .padding(.horizontal, 20)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .scrollIndicators(.hidden)
-        .refreshable {
-          Task {
-            try await loader.fetchProducts()
-          }
-        }
       }
     }
+  }
+  
+  var menuScrollView: some View {
+    ScrollView {
+      VStack {
+        ForEach(products, id: \.self) { item in
+          ProductItemView(item: item, orderVM: OrderViewModel(context: context))
+        }
+        Spacer(minLength: 60)
+        CartView(orderVM: orderVM)
+        Spacer(minLength: 100)
+      }
+    }
+    .padding(.horizontal, 20)
+    .frame(maxWidth: .infinity, alignment: .leading)
+    .scrollIndicators(.hidden)
   }
 }
 
