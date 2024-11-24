@@ -71,9 +71,9 @@ extension ButtonView {
         .overlay {
           HStack(spacing: 5) {
             Image("icon-add-to-cart")
-            Text("Add to Cart")
-              .foregroundStyle(Color.black)
-              .font(.custom("RedHatText-SemiBold", size: 12))
+              Text("Add to Cart")
+                .foregroundStyle(Color.black)
+                .font(.custom("RedHatText-SemiBold", size: 12))
           }
         }
     }

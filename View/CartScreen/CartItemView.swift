@@ -9,24 +9,27 @@ import SwiftUI
 import SwiftData
 
 struct CartItemView: View {
-  
+  @Environment(\.modelContext) var context
+  @EnvironmentObject var updater: ProductUpdater
   var itemName: String
   var quantity: Int
   var price: Double
   var total: Double
-  @Environment(\.modelContext) var context
+  var order: OrderModel?
   @Binding var count: Int
   init(
     itemName: String = "",
     quantity: Int = 0,
     price: Double = 0,
     total: Double = 0,
+    order: OrderModel? = OrderModel(),
     count: Binding<Int> = .constant(0)
   ) {
     self.itemName = itemName
     self.quantity = quantity
     self.price = price
     self.total = total
+    self.order = order
     self._count = count
   }
   
@@ -72,6 +75,7 @@ extension CartItemView {
   var cartRowDeleteButton: some View {
     Button {
       count = 0
+      updater.cartTotalCount -= order?.quantity ?? 0
       do {
         try context.delete(model: OrderModel.self, where: #Predicate { order in
           order.itemName == itemName

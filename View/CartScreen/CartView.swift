@@ -13,7 +13,7 @@ struct CartView: View {
   @EnvironmentObject var updater: ProductUpdater
   @Query var orders: [OrderModel]
   @State private var groupedOrders: [String: OrderModel] = [:]
-  @State private var shouldShowItem: Bool = true
+  //@State private var shouldShowItem: Bool = true
   var orderVM: OrderViewModel?
   
   public init(
@@ -56,10 +56,13 @@ extension CartView {
   var emptyCartImageView: some View {
     VStack(alignment: .center) {
       Image("illustration-empty-cart")
+        .padding(.vertical, 25)
       Text("Your added Items will appear here.")
         .font(.custom("RedHatText-Bold", size: 12))
         .foregroundStyle(Color.catFontColor)
+        .padding(.bottom, 20)
     }
+    
     .frame(maxWidth: .infinity, alignment: .center)
   }
   
@@ -68,8 +71,9 @@ extension CartView {
       cartOrders
       cartTotalTextView
       CarbonNeutralView()
+      CartButtonView()
     }
-    .padding(.leading, 20)
+    .padding(20)
   }
   
   var cartOrders: some View {
