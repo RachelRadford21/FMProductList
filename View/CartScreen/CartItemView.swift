@@ -75,7 +75,8 @@ extension CartItemView {
   var cartRowDeleteButton: some View {
     Button {
       count = 0
-      updater.cartTotalCount -= order?.quantity ?? 0
+      updater.cartTotalCount -= quantity
+      updater.orderTotal -= total
       do {
         try context.delete(model: OrderModel.self, where: #Predicate { order in
           order.itemName == itemName

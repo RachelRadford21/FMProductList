@@ -129,19 +129,7 @@ extension ButtonView {
         }
     }
   }
-  func neutralCount() {
-    total = price * Double(count)
-    orderVM?.addItem(itemName: itemName, count: count, price: price, total: total)
-    if count == 0 {
-      do {
-        try context.delete(model: OrderModel.self, where: #Predicate { order in
-          order.itemName == item.name
-        })
-      } catch {
-        print("error: \(error)")
-      }
-    }
-  }
+  
   func subtractValues() {
     if count > 0 {
       count -= 1
@@ -156,6 +144,20 @@ extension ButtonView {
     updater.orderTotal -= price
   }
   
+  func neutralCount() {
+    total = price * Double(count)
+    orderVM?.addItem(itemName: itemName, count: count, price: price, total: total)
+    if count == 0 {
+      do {
+        try context.delete(model: OrderModel.self, where: #Predicate { order in
+          order.itemName == item.name
+        })
+      } catch {
+        print("error: \(error)")
+      }
+    }
+  }
+  
   func addValues() {
     count += 1
     itemName = item.name
@@ -164,7 +166,6 @@ extension ButtonView {
   //  orderVM?.addItem(itemName: itemName, count: count, price: price, total: total)
     updater.cartTotalCount += 1
     updater.orderTotal += price
-   
   }
 }
 

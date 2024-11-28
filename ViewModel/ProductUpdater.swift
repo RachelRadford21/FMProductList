@@ -12,5 +12,4 @@ class ProductUpdater: ObservableObject {
     // Kinda wasteful but works well. Might delete or add other vars here??
   @Published var cartTotalCount: Int = 0
   @Published var orderTotal: Double = 0
-  
 }
