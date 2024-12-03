@@ -12,4 +12,16 @@ class ProductUpdater: ObservableObject {
     // Kinda wasteful but works well. Might delete or add other vars here??
   @Published var cartTotalCount: Int = 0
   @Published var orderTotal: Double = 0
+    @Published var productCounts: [String: Int] = [:]
+    @Published var isRowDeleted: Bool = false
+   
+    
+    func setCount(for productName: String, to count: Int) {
+            productCounts[productName] = count
+        }
+  
+    func getCount(for productName: String) -> Int {
+            productCounts[productName] ?? 0
+          
+        }
 }

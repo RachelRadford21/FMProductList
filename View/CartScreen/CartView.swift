@@ -13,7 +13,6 @@ struct CartView: View {
   @EnvironmentObject var updater: ProductUpdater
   @Query var orders: [OrderModel]
   @State private var groupedOrders: [String: OrderModel] = [:]
-  //@State private var shouldShowItem: Bool = true
   var orderVM: OrderViewModel?
   
   public init(
@@ -101,7 +100,7 @@ extension CartView {
   private func groupOrdersByProduct() {
     groupedOrders = [:]
     
-    for order in orders {
+      for order in orders {
       if let existingOrder = groupedOrders[order.itemName] {
         existingOrder.quantity = order.quantity
         existingOrder.total = order.total

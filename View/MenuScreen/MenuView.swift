@@ -10,7 +10,6 @@ import SwiftData
 
 struct MenuView: View {
   @Environment(\.modelContext) var context
-  @State var orderVM: OrderViewModel? = nil
   @Query var products: [ItemModel]
   let loader: ProductLoader = ProductLoader()
   
@@ -43,7 +42,7 @@ extension MenuView {
           ProductItemView(item: item, orderVM: OrderViewModel(context: context))
         }
         Spacer(minLength: 60)
-        CartView(orderVM: orderVM)
+        CartView(orderVM: OrderViewModel(context: context))
         Spacer(minLength: 100)
       }
     }
