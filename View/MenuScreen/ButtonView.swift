@@ -177,15 +177,6 @@ extension ButtonView {
     
     func neutralCount() {
         orderVM?.addItem(itemName: itemName, count: count, price: price, total: total)
-        if count == 0 {
-            do {
-                try context.delete(model: OrderModel.self, where: #Predicate { order in
-                    order.itemName == item.name
-                })
-            } catch {
-                print("error: \(error)")
-            }
-        }
     }
     
     func addValues() {
