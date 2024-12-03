@@ -91,10 +91,10 @@ extension ButtonView {
         }
         .accessibilityIdentifier("cartCountButton")
         .onChange(of: updater.isRowDeleted) {
-            // MARK: THIS MOSTLY WORKS. I NEED TO FIGURE OUT WHY ITS RESETTING THE COUNT ON THE WRONG BUTTON. IT IS SETTING THE ITEM I DELETED TO 1 AND THE ORDERS I AM KEEPING TO 0. IF IT IS THE ONLY ITEM BEING DELETED, IT WORKS AS EXPECTED. ALSO, IF MORE THAN ONE ITEM IS ADDED TO CART THE HIGHLIGHT DOESNT GET REMOVED ON ROW DELETION AND THE COUNT IS OFF. Possibly keeping the last added value
-            
+            //MARK: NOW IF YOU ADD ONE ITEM AND THE ANOTHER, THEN DELETE THE FIRST IT UPDATES CORRECTLY BUT OTHERWISE IT DOESNT. IF YOU ADD 3 THINGS AND DELETE THE FIRST ITEM YOU ADDED IT WORKS GREAT. THE ORDER TOTAL DOESNT WORK GREAT AND BOTH THE TOTAL AND COUNT CAN GO INTO THE NEGATIVE
             if updater.isRowDeleted {
                 addToCart = false
+                updater.setCount(for: item.name, to: 0)
             }
             if !addToCart {
                 updater.setCount(for: item.name, to: 0)
@@ -103,10 +103,10 @@ extension ButtonView {
            
         }
     }
+    
     var subtractButton: some View {
         countButton(imageName: "icon-decrement-quantity") {
             subtractValues()
-            
         }
     }
     

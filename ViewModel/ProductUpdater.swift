@@ -18,6 +18,7 @@ class ProductUpdater: ObservableObject {
     
     func setCount(for productName: String, to count: Int) {
             productCounts[productName] = count
+        print("name: \(productName), count: \(count)")
         }
   
     func getCount(for productName: String) -> Int {

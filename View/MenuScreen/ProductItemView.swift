@@ -45,14 +45,6 @@ extension ProductItemView {
             imageView
                 .overlay(alignment: .bottom) {
                     productItemButton
-                        .onChange(of: updater.isRowDeleted) {
-                            for order in orders {
-                                if order.itemName == itemName {
-                                    updater.setCount(for: item.name, to: 0)
-                                }
-                            }
-                            
-                        }
                 }
             productInfo
         }
