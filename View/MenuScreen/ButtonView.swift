@@ -91,16 +91,18 @@ extension ButtonView {
         }
         .accessibilityIdentifier("cartCountButton")
         .onChange(of: updater.isRowDeleted) {
-            //MARK: NOW IF YOU ADD ONE ITEM AND THE ANOTHER, THEN DELETE THE FIRST IT UPDATES CORRECTLY BUT OTHERWISE IT DOESNT. IF YOU ADD 3 THINGS AND DELETE THE FIRST ITEM YOU ADDED IT WORKS GREAT. THE ORDER TOTAL DOESNT WORK GREAT AND BOTH THE TOTAL AND COUNT CAN GO INTO THE NEGATIVE
-            if updater.isRowDeleted {
-                addToCart = false
-                updater.setCount(for: item.name, to: 0)
-            }
-            if !addToCart {
-                updater.setCount(for: item.name, to: 0)
-            }
-            updater.isRowDeleted = false
+          // MARK: WORKS BETTER. Need to work on adddtocart toggle. The order count and delete functionality are off once you add higher counts and more orders to cart or add items, then more items, and go back to the first or second and try to subtract or delete??? Basically simple 1 or 2 counts is ok
+          if updater.isRowDeleted  {
+            addToCart = false
+            updater.cartTotalCount -= count
+            total = 0
+            updater.setCount(for: updater.itemName, to: 0)
+          }
+          if !addToCart {
+            updater.setCount(for: updater.itemName, to: 0)
            
+          }
+          updater.isRowDeleted = false
         }
     }
     
@@ -166,26 +168,33 @@ extension ButtonView {
             count -= 1
             updater.cartTotalCount -= 1
             total -= price
+          itemName = item.name
+          updater.itemName = itemName
+         
         } else if count == 0 {
+          orderVM?.removeItem(itemName: updater.itemName, count: count, price: price, total: total)
             itemName = ""
             price = 0
-            orderVM?.removeItem(itemName: itemName, count: count, price: price, total: total)
+          updater.itemName = ""
+            
         }
-        orderVM?.removeItem(itemName: itemName, count: count, price: price, total: total)
-        updater.orderTotal -= price
+      updater.orderTotal -= price
+        orderVM?.removeItem(itemName: updater.itemName, count: count, price: price, total: total)
+       
     }
     
     func neutralCount() {
-        orderVM?.addItem(itemName: itemName, count: count, price: price, total: total)
+        orderVM?.addItem(itemName: updater.itemName, count: count, price: price, total: total)
     }
     
     func addValues() {
         count += 1
         itemName = item.name
+      updater.itemName = itemName
         price = item.price
         total += price
         // This doesnt work as expected here but works in neutral() ??
-         //   orderVM?.addItem(itemName: itemName, count: count, price: price, total: total)
+        //    orderVM?.addItem(itemName: itemName, count: count, price: price, total: total)
         updater.cartTotalCount += 1
         updater.orderTotal += price
     }

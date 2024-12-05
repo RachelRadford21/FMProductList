@@ -70,8 +70,9 @@ extension CartItemView {
     var cartRowDeleteButton: some View {
         Button {
             updater.isRowDeleted = true
-            updater.cartTotalCount -= quantity
-            updater.orderTotal -= total
+          updater.itemName = itemName
+         
+          updater.orderTotal -= total
             do {
                 try context.delete(model: OrderModel.self, where: #Predicate { order in
                     order.itemName == itemName
@@ -79,6 +80,7 @@ extension CartItemView {
             } catch {
                 print("error: \(error)")
             }
+          
         } label: {
             Circle()
                 .strokeBorder(Color.catFontColor, lineWidth: 1)
