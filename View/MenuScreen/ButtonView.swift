@@ -95,12 +95,10 @@ extension ButtonView {
           if updater.isRowDeleted  {
             addToCart = false
             updater.cartTotalCount -= count
-            total = 0
             updater.setCount(for: updater.itemName, to: 0)
           }
           if !addToCart {
             updater.setCount(for: updater.itemName, to: 0)
-           
           }
           updater.isRowDeleted = false
         }
@@ -175,6 +173,7 @@ extension ButtonView {
           orderVM?.removeItem(itemName: updater.itemName, count: count, price: price, total: total)
             itemName = ""
             price = 0
+          total = 0
           updater.itemName = ""
             
         }

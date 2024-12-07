@@ -16,21 +16,13 @@ struct ProductItemView: View {
     @State private var count: Int = 0
     @State private var itemName: String = ""
     @State private var price: Double = 0
-    @Binding var totalItemCount: Int
-    @Query var items: [ItemModel]
-    @Query var orders: [OrderModel]
-    var order: OrderModel
     let loader: ProductLoader = ProductLoader()
     public init(
         item: ItemModel = .init(image: ImageModel(), name: "", category: "", price: 0),
-        orderVM: OrderViewModel,
-        totalItemCount: Binding<Int> = .constant(0),
-        order: OrderModel = OrderModel()
+        orderVM: OrderViewModel
     ) {
         self.item = item
         self.orderVM = orderVM
-        self._totalItemCount = totalItemCount
-        self.order = order
     }
     
     var body: some View {
