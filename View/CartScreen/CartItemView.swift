@@ -80,7 +80,7 @@ extension CartItemView {
             } catch {
                 print("error: \(error)")
             }
-          
+           
         } label: {
             Circle()
                 .strokeBorder(Color.catFontColor, lineWidth: 1)

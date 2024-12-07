@@ -16,6 +16,7 @@ struct ProductItemView: View {
     @State private var count: Int = 0
     @State private var itemName: String = ""
     @State private var price: Double = 0
+    @State private var total: Double = 0
     let loader: ProductLoader = ProductLoader()
     public init(
         item: ItemModel = .init(image: ImageModel(), name: "", category: "", price: 0),
@@ -79,7 +80,8 @@ extension ProductItemView {
             ),
             addToCart: $addToCart,
             itemName: $itemName,
-            price: $price
+            price: $price,
+            total: $total
         )
         .environmentObject(updater)
         .offset(y: 20)

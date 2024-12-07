@@ -18,8 +18,8 @@ struct ButtonView: View {
     @Binding var addToCart: Bool
     @Binding var itemName: String
     @Binding var price: Double
-    @State private var total: Double = 0
-    
+   // @State private var total: Double = 0
+    @Binding var total: Double
     public init(
         item: ItemModel = .init(image: ImageModel(), name: "", category: "", price: 0),
         orderVM: OrderViewModel?,
@@ -27,7 +27,8 @@ struct ButtonView: View {
         count: Binding<Int> = .constant(0),
         addToCart: Binding<Bool> = .constant(false),
         itemName: Binding<String> = .constant(""),
-        price: Binding<Double> = .constant(0)
+        price: Binding<Double> = .constant(0),
+        total: Binding<Double> = .constant(0)
     ) {
         self.item = item
         self.orderVM = orderVM
@@ -36,6 +37,7 @@ struct ButtonView: View {
         self._addToCart = addToCart
         self._itemName = itemName
         self._price = price
+        self._total = total
     }
     var body: some View {
         buttonView
@@ -96,6 +98,7 @@ extension ButtonView {
             addToCart = false
             updater.cartTotalCount -= count
             updater.setCount(for: updater.itemName, to: 0)
+              total = 0
           }
           if !addToCart {
             updater.setCount(for: updater.itemName, to: 0)
