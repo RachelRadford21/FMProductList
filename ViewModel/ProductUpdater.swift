@@ -22,6 +22,5 @@ class ProductUpdater: ObservableObject {
   
   func getCount(for productName: String) -> Int {
     productCounts[productName] ?? 0
-    
   }
 }
