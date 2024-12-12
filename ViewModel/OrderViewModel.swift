@@ -8,11 +8,10 @@
 import Foundation
 import SwiftData
 
-
 struct OrderViewModel {
     var context: ModelContext
     let container = try! ModelContainer(for: OrderModel.self)
-    
+  
     init(
         context: ModelContext
     ) {
@@ -25,6 +24,7 @@ struct OrderViewModel {
         context.insert(newItem)
         
         saveContext()
+       
     }
     
     func removeItem(itemName: String, count: Int, price: Double, total: Double) {
@@ -33,7 +33,9 @@ struct OrderViewModel {
         context.delete(removeItem)
         
         saveContext()
+       
     }
+  
     
     private func saveContext() {
         do {

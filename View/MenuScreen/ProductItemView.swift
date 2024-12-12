@@ -17,7 +17,7 @@ struct ProductItemView: View {
     @State private var itemName: String = ""
     @State private var price: Double = 0
     @State private var total: Double = 0
-    let loader: ProductLoader = ProductLoader()
+
     public init(
         item: ItemModel = .init(image: ImageModel(), name: "", category: "", price: 0),
         orderVM: OrderViewModel
@@ -28,6 +28,7 @@ struct ProductItemView: View {
     
     var body: some View {
         productView
+        .padding(.horizontal, 20)
     }
 }
 

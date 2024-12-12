@@ -11,11 +11,10 @@ struct CartHeaderView: View {
   @EnvironmentObject var updater: ProductUpdater
   
   var body: some View {
-    Text("Your Cart (\(updater.cartTotalCount))")
-      .font(.custom("RedHatText-Bold", size: 25))
-      .foregroundStyle(Color.buttonBackground)
-      .frame(maxWidth: .infinity, alignment: .leading)
-      .padding([.top, .leading], 20)
+      Text("Your Cart (\(updater.cartTotalCount))")
+        .font(.custom("RedHatText-Bold", size: 25))
+        .foregroundStyle(Color.buttonBackground)
+        .frame(maxWidth: .infinity, alignment: .leading)
   }
 }
 

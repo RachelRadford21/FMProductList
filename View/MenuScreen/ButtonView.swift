@@ -39,6 +39,7 @@ struct ButtonView: View {
         self._price = price
         self._total = total
     }
+  
     var body: some View {
         buttonView
     }
@@ -62,50 +63,58 @@ extension ButtonView {
         } label: {
             buttonLabelView
                 .overlay {
-                    HStack(spacing: 5) {
-                        Image("icon-add-to-cart")
-                        Text("Add to Cart")
-                            .foregroundStyle(Color.black)
-                            .font(.custom("RedHatText-SemiBold", size: 12))
-                    }
+                  addToCartButtonOverlay
                 }
         }
         .accessibilityIdentifier("addToCartButton")
         .opacity(addToCartOpacity)
     }
     
+  var addToCartButtonOverlay: some View {
+    HStack(spacing: 5) {
+        Image("icon-add-to-cart")
+        Text("Add to Cart")
+            .foregroundStyle(Color.black)
+            .font(.custom("RedHatText-SemiBold", size: 12))
+    }
+  }
+  
     func cartCountButton() -> some View {
         Button {
             addToCart.toggle()
         } label: {
             buttonLabelView
                 .overlay {
-                    HStack {
-                        subtractButton
-                        Spacer()
-                        countTextView
-                        Spacer()
-                        addButton
-                    }
-                    .padding(.horizontal, 12)
-                    .opacity(countOpacity)
+                  cartCountOverlay
                 }
         }
         .accessibilityIdentifier("cartCountButton")
         .onChange(of: updater.isRowDeleted) {
           // MARK: WORKS BETTER. Need to work on adddtocart toggle. The order count and delete functionality are off once you add higher counts and more orders to cart or add items, then more items, and go back to the first or second and try to subtract or delete??? Basically simple 1 or 2 counts is ok
           if updater.isRowDeleted  {
-            addToCart = false
-            updater.cartTotalCount -= count
-            updater.setCount(for: updater.itemName, to: 0)
-              total = 0
+             addToCart = false
+             updater.cartTotalCount -= count
+             updater.setCount(for: updater.itemName, to: 0)
+             total = 0
           }
           if !addToCart {
-            updater.setCount(for: updater.itemName, to: 0)
+             updater.setCount(for: updater.itemName, to: 0)
           }
           updater.isRowDeleted = false
         }
     }
+  
+  var cartCountOverlay: some View {
+    HStack {
+        subtractButton
+        Spacer()
+        countTextView
+        Spacer()
+        addButton
+    }
+    .padding(.horizontal, 12)
+    .opacity(countOpacity)
+  }
     
     var subtractButton: some View {
         countButton(imageName: "icon-decrement-quantity") {
@@ -126,6 +135,21 @@ extension ButtonView {
             
         }
     }
+  
+  func countButton(imageName: String, action: (() -> Void)?) ->  some View {
+      Button {
+          action?()
+          neutralCount()
+      } label: {
+          Circle()
+              .strokeBorder(Color.white, lineWidth: 1)
+              .frame(width: 15, height: 15)
+              .overlay {
+                  Image(imageName)
+              }
+      }
+  }
+  
     var buttonLabelView: some View {
         Capsule(style: .continuous)
             .strokeBorder(labelBorderColor)
@@ -148,20 +172,6 @@ extension ButtonView {
     
     var buttonBackgroundColor: Color {
         addToCart ? Color.buttonBackground : Color.white
-    }
-    
-    func countButton(imageName: String, action: (() -> Void)? ) ->  some View {
-        Button {
-            action?()
-            neutralCount()
-        } label: {
-            Circle()
-                .strokeBorder(Color.white, lineWidth: 1)
-                .frame(width: 15, height: 15)
-                .overlay {
-                    Image(imageName)
-                }
-        }
     }
     
     func subtractValues() {

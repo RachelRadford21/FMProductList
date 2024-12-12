@@ -95,6 +95,17 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		AB334D482D061A890026194B /* GlobalViews */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = GlobalViews;
+			sourceTree = "<group>";
+		};
+		AB334D4B2D061ABE0026194B /* ConfirmationScreen */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			name = ConfirmationScreen;
+			path = View/ConfirmationScreen;
+			sourceTree = SOURCE_ROOT;
+		};
 		AB4F39962CBC2D4C0009690E /* fonts */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = fonts;
@@ -196,6 +207,8 @@
 			children = (
 				ABD35C9A2CEC002B000BABD6 /* MenuScreen */,
 				ABD35C952CEC002B000BABD6 /* CartScreen */,
+				AB334D4B2D061ABE0026194B /* ConfirmationScreen */,
+				AB334D482D061A890026194B /* GlobalViews */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -219,6 +232,8 @@
 				AB17358E2CBB4AEF002E3B24 /* FMProductList */,
 				AB1735C22CBB4B9B002E3B24 /* HelperFiles */,
 				AB1735C42CBB4BB2002E3B24 /* ViewModel */,
+				AB334D482D061A890026194B /* GlobalViews */,
+				AB334D4B2D061ABE0026194B /* ConfirmationScreen */,
 				AB4F39962CBC2D4C0009690E /* fonts */,
 				ABF056F02CC591C300134915 /* images */,
 			);

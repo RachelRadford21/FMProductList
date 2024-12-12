@@ -29,58 +29,60 @@ struct CartView: View {
 extension CartView {
   
   var fullCartView: some View {
-    VStack(alignment: .leading, spacing: 15) {
-      CartHeaderView()
+    VStack {
       if updater.cartTotalCount == 0 {
         emptyCartImageView
       } else {
         cartOrderView
           .onAppear {
-            groupOrdersByProduct()
+            GroupedOrderView(
+              groupedOrders: $groupedOrders,
+              orders: orders,
+              orderVM: orderVM
+            )
+            .groupOrdersByProduct()
           }
           .onChange(of: orders) {
-            groupOrdersByProduct()
+            GroupedOrderView(
+              groupedOrders: $groupedOrders,
+              orders: orders,
+              
+              orderVM: orderVM
+            )
+            .groupOrdersByProduct()
           }
       }
     }
-    .frame(width: 350)
-    .frame(maxWidth: .infinity, minHeight: 300, maxHeight: .infinity, alignment: .leading)
-    .background(
-      RoundedRectangle(cornerRadius: 20)
-        .foregroundStyle(Color.white)
-        .opacity(0.6)
-    )
   }
   
   var emptyCartImageView: some View {
-    VStack(alignment: .center) {
+    VStack(alignment: .center, spacing: 50) {
+      CartHeaderView()
+        .padding(.leading, 35)
       Image("illustration-empty-cart")
-        .padding(.vertical, 25)
       Text("Your added Items will appear here.")
         .font(.custom("RedHatText-Bold", size: 12))
         .foregroundStyle(Color.catFontColor)
-        .padding(.bottom, 20)
     }
-    
-    .frame(maxWidth: .infinity, alignment: .center)
+    .background(CardBackgroundView(color: .white.opacity(0.6)))
   }
   
   var cartOrderView: some View {
-    VStack {
-      cartOrders
+    VStack(spacing: 20) {
+      CartHeaderView()
+        .padding(.bottom, 10)
+      GroupedOrderView(
+        groupedOrders: $groupedOrders,
+        orders: orders,
+        orderVM: orderVM
+      )
       cartTotalTextView
       CarbonNeutralView()
-      CartButtonView()
+      CartButtonView(orderVM: OrderViewModel(context: context))
     }
-    .padding(20)
-  }
-  
-  var cartOrders: some View {
-    ForEach(Array(groupedOrders.values), id: \.id) { order in
-      CartItemView(itemName: order.itemName, quantity: order.quantity, price: order.price, total: order.total)
-        .frame(maxWidth: .infinity, alignment: .leading)
-      
-    }
+    .padding(40)
+    .background(CardBackgroundView(minWidth: 350))
+    .padding(.top, -55)
   }
   
   var cartTotalTextView: some View {
@@ -95,19 +97,6 @@ extension CartView {
         .brightness(-0.2)
     }
     .frame(maxWidth: .infinity, alignment: .leading)
-  }
-  
-  private func groupOrdersByProduct() {
-    groupedOrders = [:]
-    
-      for order in orders {
-      if let existingOrder = groupedOrders[order.itemName] {
-        existingOrder.quantity = order.quantity
-        existingOrder.total = order.total
-      } else {
-        groupedOrders[order.itemName] = order
-      }
-    }
   }
 }
 

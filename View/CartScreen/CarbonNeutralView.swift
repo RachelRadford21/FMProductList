@@ -16,17 +16,17 @@ struct CarbonNeutralView: View {
 extension CarbonNeutralView {
   
   var carbonNeutralView: some View {
-    ZStack {
+      ZStack {
       Color.launchScreenBackground
         .opacity(0.2).frame(width: 300, height: 45)
         .clipShape(RoundedRectangle(cornerRadius: 10))
       HStack(spacing: 0) {
         carbonImageView
         carbonTextView
-
       }
     }
   }
+  
   var carbonImageView: some View {
     Image("icon-carbon-neutral")
   }
