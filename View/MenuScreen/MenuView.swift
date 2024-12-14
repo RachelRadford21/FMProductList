@@ -12,7 +12,7 @@ struct MenuView: View {
   @Environment(\.modelContext) var context
   @Query(sort: \ItemModel.name) var products: [ItemModel]
   let loader: ProductLoader = ProductLoader()
-  
+ 
   var body: some View {
     menuView
   }
@@ -32,6 +32,11 @@ extension MenuView {
             }
           }
       }
+      .onAppear {
+          Task {
+              try await loader.fetchProducts()
+          }
+      }
     }
   }
   
@@ -39,10 +44,10 @@ extension MenuView {
     ScrollView {
       VStack {
         ForEach(products, id: \.self) { item in
-            ProductItemView(item: item, orderVM: OrderViewModel(context: context))
+            ProductItemView(item: item)
         }
         Spacer(minLength: 60)
-          CartView(orderVM: OrderViewModel(context: context))
+          CartView()
         Spacer(minLength: 100)
       }
     }

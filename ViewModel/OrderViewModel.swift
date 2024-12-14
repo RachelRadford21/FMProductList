@@ -8,15 +8,21 @@
 import Foundation
 import SwiftData
 
-struct OrderViewModel {
-    var context: ModelContext
-    let container = try! ModelContainer(for: OrderModel.self)
-  
-    init(
-        context: ModelContext
-    ) {
-        self.context = context
-    }
+class OrderViewModel: ObservableObject {
+    let context: ModelContext
+     @Published var orders: [OrderModel] = []
+     @Published var groupedOrders: [String : OrderModel] = [:]
+
+     init(
+        context: ModelContext? = nil
+     ) {
+         if let providedContext = context {
+             self.context = providedContext
+         } else {
+             let container = try! ModelContainer(for: OrderModel.self)
+             self.context = ModelContext(container)
+         }
+     }
     
     func addItem(itemName: String, count: Int, price: Double, total: Double) {
         let newItem = OrderModel(id: UUID(), itemName: itemName, quantity: count, price: price, total: total)
@@ -29,13 +35,25 @@ struct OrderViewModel {
     
     func removeItem(itemName: String, count: Int, price: Double, total: Double) {
         let removeItem = OrderModel(id: UUID(), itemName: itemName, quantity: count, price: price, total: total)
-      
+        
         context.delete(removeItem)
         
         saveContext()
-       
     }
-  
+    
+    func groupOrdersByProduct(orders: [OrderModel]) {
+//        let grouped: [String : OrderModel] = [:]
+        
+        for order in orders {
+            if let existingOrder = groupedOrders[order.itemName] {
+                existingOrder.quantity = order.quantity
+                existingOrder.total = order.total
+            } else {
+                groupedOrders[order.itemName] = order
+            }
+        }
+//        groupedOrders = grouped
+    }
     
     private func saveContext() {
         do {

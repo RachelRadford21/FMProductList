@@ -11,6 +11,8 @@ import SwiftData
 struct CartItemView: View {
   @Environment(\.modelContext) var context
   @EnvironmentObject var updater: ProductUpdater
+    @EnvironmentObject var orderVM: OrderViewModel
+    @Query var orders: [OrderModel]
   var itemName: String
   var quantity: Int
   var price: Double
@@ -72,14 +74,15 @@ extension CartItemView {
       updater.isRowDeleted = true
       updater.itemName = itemName
       updater.orderTotal -= total
-      do {
-        try context.delete(model: OrderModel.self, where: #Predicate { order in
-          order.itemName == itemName
-        })
-      } catch {
-        print("error: \(error)")
-      }
-      
+ //     do {
+//        try context.delete(model: OrderModel.self, where: #Predicate { order in
+//          order.itemName == itemName
+//        })
+          orderVM.removeItem(itemName: itemName, count: quantity, price: price, total: total)
+//      } catch {
+//        print("error: \(error)")
+//      }
+        orderVM.groupOrdersByProduct(orders: orders)
     } label: {
       deleteRowButton
     }

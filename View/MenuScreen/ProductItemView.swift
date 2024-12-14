@@ -10,7 +10,7 @@ import SwiftData
 
 struct ProductItemView: View {
     let item: ItemModel
-    var orderVM: OrderViewModel
+    @EnvironmentObject var orderVM: OrderViewModel
     @EnvironmentObject var updater: ProductUpdater
     @State private var addToCart: Bool = false
     @State private var count: Int = 0
@@ -19,16 +19,13 @@ struct ProductItemView: View {
     @State private var total: Double = 0
 
     public init(
-        item: ItemModel = .init(image: ImageModel(), name: "", category: "", price: 0),
-        orderVM: OrderViewModel
+        item: ItemModel = .init(image: ImageModel(), name: "", category: "", price: 0)
     ) {
         self.item = item
-        self.orderVM = orderVM
     }
     
     var body: some View {
         productView
-        .padding(.horizontal, 20)
     }
 }
 
@@ -42,6 +39,7 @@ extension ProductItemView {
                 }
             productInfo
         }
+        .padding(.horizontal, 20)
     }
 }
 
@@ -74,7 +72,6 @@ extension ProductItemView {
     var productItemButton: some View {
         ButtonView(
             item: item,
-            orderVM: orderVM,
             count: Binding(
                 get: { updater.getCount(for: item.name) },
                 set: { updater.setCount(for: item.name, to: $0) }

@@ -11,18 +11,17 @@ import SwiftData
 struct ButtonView: View {
     @Environment(\.modelContext) var context
     @EnvironmentObject var updater: ProductUpdater
-    var orderVM: OrderViewModel?
+    @EnvironmentObject var orderVM: OrderViewModel
+    @Query var orders: [OrderModel]
     var item: ItemModel
     var order: OrderModel
     @Binding var count: Int
     @Binding var addToCart: Bool
     @Binding var itemName: String
     @Binding var price: Double
-   // @State private var total: Double = 0
     @Binding var total: Double
     public init(
         item: ItemModel = .init(image: ImageModel(), name: "", category: "", price: 0),
-        orderVM: OrderViewModel?,
         order: OrderModel = OrderModel(),
         count: Binding<Int> = .constant(0),
         addToCart: Binding<Bool> = .constant(false),
@@ -31,7 +30,6 @@ struct ButtonView: View {
         total: Binding<Double> = .constant(0)
     ) {
         self.item = item
-        self.orderVM = orderVM
         self.order = order
         self._count = count
         self._addToCart = addToCart
@@ -178,25 +176,28 @@ extension ButtonView {
         if count > 0 {
             count -= 1
             updater.cartTotalCount -= 1
-            total -= price
+
+            total -= item.price
           itemName = item.name
-          updater.itemName = itemName
+         updater.itemName = itemName
          
         } else if count == 0 {
-          orderVM?.removeItem(itemName: updater.itemName, count: count, price: price, total: total)
+            updater.cartTotalCount -= count
+          orderVM.removeItem(itemName: updater.itemName, count: count, price: price, total: total)
             itemName = ""
             price = 0
           total = 0
           updater.itemName = ""
-            
+           
         }
       updater.orderTotal -= price
-        orderVM?.removeItem(itemName: updater.itemName, count: count, price: price, total: total)
-       
+        orderVM.removeItem(itemName: updater.itemName, count: count, price: price, total: total)
+        orderVM.groupOrdersByProduct(orders: orders)
     }
     
     func neutralCount() {
-        orderVM?.addItem(itemName: updater.itemName, count: count, price: price, total: total)
+        orderVM.addItem(itemName: updater.itemName, count: count, price: price, total: total)
+       
     }
     
     func addValues() {
@@ -208,7 +209,10 @@ extension ButtonView {
         // This doesnt work as expected here but works in neutral() ??
         //    orderVM?.addItem(itemName: itemName, count: count, price: price, total: total)
         updater.cartTotalCount += 1
+        // This works well enough except in certain situations. Just trying something else
+//        updater.orderTotal += price
         updater.orderTotal += price
+        orderVM.groupOrdersByProduct(orders: orders)
     }
 }
 

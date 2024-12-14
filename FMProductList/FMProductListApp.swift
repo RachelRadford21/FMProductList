@@ -12,17 +12,18 @@ import SwiftData
 struct FMProductListApp: App {
   let container = try! ModelContainer(for: ItemModel.self, OrderModel.self)
   @StateObject var updater: ProductUpdater = ProductUpdater()
-  let productLoader = ProductLoader()
   let dataImporter: DataImporter
+    @StateObject var orderVM: OrderViewModel = OrderViewModel()
   
   init() {
-    self.dataImporter = DataImporter(context: container.mainContext, loader: productLoader)
+    self.dataImporter = DataImporter(context: container.mainContext, loader: ProductLoader())
   }
   
   var body: some Scene {
     WindowGroup {
       ContentView()
-        .environmentObject(updater)
+            .environmentObject(updater)
+               .environmentObject(orderVM)
         .task {
           do {
             try await dataImporter.importData()
@@ -31,6 +32,6 @@ struct FMProductListApp: App {
           }
         }
     }
-    .modelContainer(container)
+    .modelContainer(for: [ItemModel.self, OrderModel.self])
   }
 }

@@ -6,30 +6,23 @@
 //
 
 import SwiftUI
-import SwiftData
 
 struct CartButtonView: View {
-    @Environment(\.modelContext) var context
     @State var isOrderConfirmed: Bool = false
-    var orderVM: OrderViewModel?
-  
-  init(
-      orderVM: OrderViewModel
-  ) {
-      self.orderVM = orderVM
-  }
-  
+    @State private var selectedDetent: PresentationDetent = .medium
     var body: some View {
       
       Button {
-          isOrderConfirmed.toggle()
+        isOrderConfirmed.toggle()
       } label: {
         orderConfirmationLabel
       }
       .frame(height: 50)
       .frame(maxWidth: .infinity, alignment: .center)
       .sheet(isPresented: $isOrderConfirmed) {
-        ConfirmationView( orderVM: OrderViewModel(context: context))
+          ConfirmationView()
+              .presentationDetents([.medium, .large], selection: $selectedDetent)
+              .presentationDragIndicator(.visible)
       }
       
     }

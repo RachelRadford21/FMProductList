@@ -11,16 +11,9 @@ import SwiftData
 struct CartView: View {
   @Environment(\.modelContext) var context
   @EnvironmentObject var updater: ProductUpdater
+  @EnvironmentObject var orderVM: OrderViewModel
   @Query var orders: [OrderModel]
-  @State private var groupedOrders: [String: OrderModel] = [:]
-  var orderVM: OrderViewModel?
-  
-  public init(
-    orderVM: OrderViewModel?
-  ) {
-    self.orderVM = orderVM
-  }
-  
+    
   var body: some View {
     fullCartView
   }
@@ -34,23 +27,6 @@ extension CartView {
         emptyCartImageView
       } else {
         cartOrderView
-          .onAppear {
-            GroupedOrderView(
-              groupedOrders: $groupedOrders,
-              orders: orders,
-              orderVM: orderVM
-            )
-            .groupOrdersByProduct()
-          }
-          .onChange(of: orders) {
-            GroupedOrderView(
-              groupedOrders: $groupedOrders,
-              orders: orders,
-              
-              orderVM: orderVM
-            )
-            .groupOrdersByProduct()
-          }
       }
     }
   }
@@ -67,37 +43,30 @@ extension CartView {
     .background(CardBackgroundView(color: .white.opacity(0.6)))
   }
   
-  var cartOrderView: some View {
-    VStack(spacing: 20) {
-      CartHeaderView()
-        .padding(.bottom, 10)
-      GroupedOrderView(
-        groupedOrders: $groupedOrders,
-        orders: orders,
-        orderVM: orderVM
-      )
-      cartTotalTextView
-      CarbonNeutralView()
-      CartButtonView(orderVM: OrderViewModel(context: context))
+    var cartOrderView: some View {
+        VStack(spacing: 20) {
+            CartHeaderView()
+                .padding(.bottom, 10)
+            GroupedOrderView()
+            CartTotalView(updater: _updater)
+            CarbonNeutralView()
+            CartButtonView()
+        }
+        .padding(40)
+        .background(CardBackgroundView(minWidth: 350))
+        .padding(.top, -55)
+        .environmentObject(orderVM)
+        .onAppear {
+            orderVM.groupOrdersByProduct(orders: orders)
+        }
+        .onChange(of: orders) {
+            orderVM.groupOrdersByProduct(orders: orders)
+            
+               for order in orders {
+                   print("Order itemName cartview: \(order.itemName), quantity: \(order.quantity), price: \(order.price), total: \(order.total)")
+               }
+        }
     }
-    .padding(40)
-    .background(CardBackgroundView(minWidth: 350))
-    .padding(.top, -55)
-  }
-  
-  var cartTotalTextView: some View {
-    HStack {
-      Text("Order Total ")
-        .font(.custom("RedHatText-Bold", size: 15))
-        .foregroundStyle(Color.catFontColor)
-      Spacer()
-      Text("$\(updater.orderTotal, specifier: "%.2f")")
-        .font(.custom("RedHatText-Bold", size: 25))
-        .foregroundStyle(Color.catFontColor)
-        .brightness(-0.2)
-    }
-    .frame(maxWidth: .infinity, alignment: .leading)
-  }
 }
 
 
