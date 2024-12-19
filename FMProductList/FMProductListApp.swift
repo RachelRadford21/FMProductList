@@ -13,7 +13,7 @@ struct FMProductListApp: App {
   let container = try! ModelContainer(for: ItemModel.self, OrderModel.self)
   @StateObject var updater: ProductUpdater = ProductUpdater()
   let dataImporter: DataImporter
-    @StateObject var orderVM: OrderViewModel = OrderViewModel()
+  @StateObject var orderVM: OrderViewModel = OrderViewModel()
   
   init() {
     self.dataImporter = DataImporter(context: container.mainContext, loader: ProductLoader())

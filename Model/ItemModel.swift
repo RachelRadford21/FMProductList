@@ -10,10 +10,10 @@ import SwiftData
 
 @Model
 class ItemModel: Codable {
-    var image: ImageModel
-    var name: String
-    var category: String
-    var price: Double
+    @Attribute var image: ImageModel
+    @Attribute var name: String
+    @Attribute var category: String
+    @Attribute var price: Double
     
     init(
         image: ImageModel,
@@ -36,10 +36,10 @@ class ItemModel: Codable {
     
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        image = try container.decode(ImageModel.self, forKey: .image)
-        name = try container.decode(String.self, forKey: .name)
-        category = try container.decode(String.self, forKey: .category)
-        price = try container.decode(Double.self, forKey: .price)
+      self.image = try container.decode(ImageModel.self, forKey: .image)
+      self.name = try container.decode(String.self, forKey: .name)
+      self.category = try container.decode(String.self, forKey: .category)
+      self.price = try container.decode(Double.self, forKey: .price)
     }
     func encode(to encoder: any Encoder) throws {
         

@@ -13,7 +13,15 @@ struct GroupedOrderView: View {
   @EnvironmentObject var updater: ProductUpdater
     @EnvironmentObject var orderVM: OrderViewModel
   @Query var orders: [OrderModel]
-
+  var item: ItemModel
+  var isConfirmationView: Bool
+  init(
+    item: ItemModel = ItemModel(image: ImageModel()),
+    isConfirmationView: Bool = false
+  ) {
+    self.item = item
+    self.isConfirmationView = isConfirmationView
+  }
   var body: some View {
     cartOrders
         
@@ -22,9 +30,8 @@ struct GroupedOrderView: View {
 
 extension GroupedOrderView {
   var cartOrders: some View {
-      ForEach(Array(orderVM.groupedOrders.values), id: \.id) { order in
-      CartItemView(itemName: order.itemName, quantity: order.quantity, price: order.price, total: order.total)
-             
+    ForEach(Array(orderVM.groupedOrders.values), id: \.id) { order in
+      CartItemView(itemName: order.itemName, quantity: order.quantity, price: order.price, total: order.total, imageName: order.image, isConfirmationView: isConfirmationView)
     }
   }
 }

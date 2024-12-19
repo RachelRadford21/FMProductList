@@ -10,11 +10,12 @@ import SwiftData
 
 struct MenuView: View {
   @Environment(\.modelContext) var context
-  @Query(sort: \ItemModel.name) var products: [ItemModel]
+  @Query(sort: \ItemModel.name) var items: [ItemModel]
   let loader: ProductLoader = ProductLoader()
- 
+  
   var body: some View {
     menuView
+      .accessibilityIdentifier("MenuView")
   }
 }
 
@@ -22,7 +23,7 @@ extension MenuView {
   var menuView: some View {
     ZStack {
       Color.launchScreenBackground.ignoresSafeArea()
-
+      
       VStack(alignment: .leading) {
         MainHeaderView()
         menuScrollView
@@ -33,9 +34,9 @@ extension MenuView {
           }
       }
       .onAppear {
-          Task {
-              try await loader.fetchProducts()
-          }
+        Task {
+          try await loader.fetchProducts()
+        }
       }
     }
   }
@@ -43,11 +44,11 @@ extension MenuView {
   var menuScrollView: some View {
     ScrollView {
       VStack {
-        ForEach(products, id: \.self) { item in
-            ProductItemView(item: item)
+        ForEach(items, id: \.self) { item in
+          ProductItemView(item: item)
         }
         Spacer(minLength: 60)
-          CartView()
+        CartView()
         Spacer(minLength: 100)
       }
     }

@@ -24,8 +24,8 @@ class OrderViewModel: ObservableObject {
          }
      }
     
-    func addItem(itemName: String, count: Int, price: Double, total: Double) {
-        let newItem = OrderModel(id: UUID(), itemName: itemName, quantity: count, price: price, total: total)
+    func addItem(itemName: String, count: Int, price: Double, total: Double, image: String) {
+        let newItem = OrderModel(id: UUID(), itemName: itemName, quantity: count, price: price, total: total, image: image)
         
         context.insert(newItem)
         
@@ -33,8 +33,8 @@ class OrderViewModel: ObservableObject {
        
     }
     
-    func removeItem(itemName: String, count: Int, price: Double, total: Double) {
-        let removeItem = OrderModel(id: UUID(), itemName: itemName, quantity: count, price: price, total: total)
+    func removeItem(itemName: String, count: Int, price: Double, total: Double, image: String? = nil) {
+        let removeItem = OrderModel(id: UUID(), itemName: itemName, quantity: count, price: price, total: total, image: image ?? "")
         
         context.delete(removeItem)
         
@@ -42,17 +42,15 @@ class OrderViewModel: ObservableObject {
     }
     
     func groupOrdersByProduct(orders: [OrderModel]) {
-//        let grouped: [String : OrderModel] = [:]
-        
         for order in orders {
             if let existingOrder = groupedOrders[order.itemName] {
                 existingOrder.quantity = order.quantity
                 existingOrder.total = order.total
+             
             } else {
                 groupedOrders[order.itemName] = order
             }
         }
-//        groupedOrders = grouped
     }
     
     private func saveContext() {
