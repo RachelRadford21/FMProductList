@@ -13,28 +13,21 @@ struct CartItemView: View {
   @EnvironmentObject var updater: ProductUpdater
   @EnvironmentObject var orderVM: OrderViewModel
   @Query var orders: [OrderModel]
-//  @Query var items: [ItemModel]
-  var order: OrderModel
-  var item: ItemModel
   var itemName: String
   var quantity: Int
   var price: Double
   var total: Double
   var imageName: String
   var isConfirmationView: Bool
+    
   init(
-    order: OrderModel = OrderModel(),
-    item: ItemModel  = ItemModel(image: ImageModel()),
     itemName: String = "",
     quantity: Int = 0,
     price: Double = 0,
     total: Double = 0,
     imageName: String = "",
     isConfirmationView: Bool = false
-  
   ) {
-    self.order = order
-    self.item = item
     self.itemName = itemName
     self.quantity = quantity
     self.price = price

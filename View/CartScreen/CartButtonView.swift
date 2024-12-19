@@ -8,23 +8,23 @@
 import SwiftUI
 
 struct CartButtonView: View {
-    @State var isOrderConfirmed: Bool = false
-    @State private var selectedDetent: PresentationDetent = .medium
+    var buttonTitle: String
+    var action: () -> Void?
+    
+    init(
+        action: @escaping () -> Void?,
+        buttonTitle: String = "Confirm Order"
+    ) {
+        self.action = action
+        self.buttonTitle = buttonTitle
+    }
+    
     var body: some View {
-      
-      Button {
-        isOrderConfirmed.toggle()
-      } label: {
-        orderConfirmationLabel
-      }
-      .frame(height: 50)
-      .frame(maxWidth: .infinity, alignment: .center)
-      .sheet(isPresented: $isOrderConfirmed) {
-          ConfirmationView()
-              .presentationDetents([.medium, .large], selection: $selectedDetent)
-              .presentationDragIndicator(.visible)
-      }
-      
+        Button {
+            action()
+        } label: {
+            orderConfirmationLabel
+        }
     }
 }
 
@@ -32,10 +32,11 @@ extension CartButtonView {
   var orderConfirmationLabel: some View {
     Capsule(style: .continuous)
       .strokeBorder(Color.clear)
+      .frame(height: 50)
       .background(Color.buttonBackground)
       .clipShape(RoundedRectangle(cornerRadius: 25))
       .overlay {
-        Text("Confirm Order")
+          Text(buttonTitle)
           .foregroundStyle(Color.white)
       }
   }

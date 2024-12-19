@@ -47,8 +47,9 @@ extension ProductItemView {
   var imageView: some View {
     VStack {
       productImageView
+            .renderingMode(.original) 
         .resizable()
-        .scaledToFill()
+        .scaledToFit()
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .overlay(content: {
           RoundedRectangle(cornerRadius: 10)

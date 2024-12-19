@@ -12,7 +12,7 @@ struct MenuView: View {
   @Environment(\.modelContext) var context
   @Query(sort: \ItemModel.name) var items: [ItemModel]
   let loader: ProductLoader = ProductLoader()
-  
+   
   var body: some View {
     menuView
       .accessibilityIdentifier("MenuView")
@@ -50,10 +50,13 @@ extension MenuView {
         Spacer(minLength: 60)
         CartView()
         Spacer(minLength: 100)
+              
       }
+
     }
     .frame(maxWidth: .infinity, alignment: .leading)
     .scrollIndicators(.hidden)
+          
   }
 }
 

@@ -10,16 +10,11 @@ import SwiftData
 
 struct ConfirmationView: View {
     @Environment(\.modelContext) var context
+    @Environment(\.dismiss) var dismiss
     @EnvironmentObject var updater: ProductUpdater
     @Query var orders: [OrderModel]
     @EnvironmentObject var orderVM: OrderViewModel
-    var order: OrderModel
-    
-    init(
-      order: OrderModel = OrderModel()
-    ) {
-        self.order = order
-    }
+   
     var body: some View {
         ZStack {
             sheetBackgroundColor
@@ -38,6 +33,10 @@ struct ConfirmationView: View {
 
                   GroupedOrderView(isConfirmationView: true)
                     CartTotalView(updater: _updater)
+                    CartButtonView(action: {
+                        updater.isOrderConfirmed.toggle()
+                    }, buttonTitle: "Start New Order")
+                    
                 }
                 .padding(60)
                 .background(CardBackgroundView(minWidth: 350, minHeight: 500))
