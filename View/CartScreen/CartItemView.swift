@@ -56,7 +56,6 @@ extension CartItemView {
           if !isConfirmationView {
             cartRowDeleteButton
           }
-         
         }
         .padding(.vertical, 5)
         
@@ -85,18 +84,29 @@ extension CartItemView {
   
   var cartRowDeleteButton: some View {
     Button {
+      updater.orderTotal -= total
       updater.isRowDeleted = true
       updater.itemName = itemName
-      updater.orderTotal -= total
+
+     
+      updater.cartTotalCount -= quantity
+ 
+    // DONT TOUCH
+      // Not sure why this works but orderVM.removeItem doesnt
       do {
         try context.delete(model: OrderModel.self, where: #Predicate { order in
-          order.itemName == itemName
+          order.itemName == itemName 
         })
+        try context.save()
       } catch {
         print("error: \(error)")
       }
-   //   orderVM.removeItem(itemName: itemName, count: quantity, price: price, total: total, image: item.image.thumbnail.lowercased())
-        orderVM.groupOrdersByProduct(orders: orders)
+  
+      // DONT TOUCH
+      orderVM.groupedOrders.removeValue(forKey: itemName)
+    
+      // DONT TOUCH
+      orderVM.fetchOrders()
     } label: {
       deleteRowButton
     }

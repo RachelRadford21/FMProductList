@@ -34,7 +34,10 @@ struct ConfirmationView: View {
                   GroupedOrderView(isConfirmationView: true)
                     CartTotalView(updater: _updater)
                     CartButtonView(action: {
-                        updater.isOrderConfirmed.toggle()
+                      updater.isOrderCancelled = true
+                      
+                     
+                      updater.isOrderConfirmed.toggle()
                     }, buttonTitle: "Start New Order")
                     
                 }
@@ -42,7 +45,11 @@ struct ConfirmationView: View {
                 .background(CardBackgroundView(minWidth: 350, minHeight: 500))
                 .padding(.top, 100)
                 .onAppear {
+                  orderVM.fetchOrders()
                     orderVM.groupOrdersByProduct(orders: orders)
+                }
+                .onDisappear {
+                  updater.isOrderCancelled = false
                 }
             }
             .scrollIndicators(.hidden)

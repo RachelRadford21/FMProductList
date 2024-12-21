@@ -24,7 +24,7 @@ extension CartView {
     
     var fullCartView: some View {
         VStack {
-            if updater.cartTotalCount == 0 {
+          if updater.cartTotalCount == 0 || updater.isOrderCancelled {
                 emptyCartImageView
             } else {
                 cartOrderView
@@ -70,11 +70,9 @@ extension CartView {
             orderVM.groupOrdersByProduct(orders: orders)
         }
         .onChange(of: orders) {
+          orderVM.fetchOrders()
             orderVM.groupOrdersByProduct(orders: orders)
             
-            for order in orders {
-                print("Order itemName cartview: \(order.itemName), quantity: \(order.quantity), price: \(order.price), total: \(order.total)")
-            }
         }
     }
 }

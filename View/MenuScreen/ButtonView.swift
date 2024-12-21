@@ -90,18 +90,28 @@ extension ButtonView {
     }
     .accessibilityIdentifier("cartCountButton")
     .onChange(of: updater.isRowDeleted) {
-      // MARK: WORKS BETTER. Need to work on adddtocart toggle. The order count and delete functionality are off once you add higher counts and more orders to cart or add items, then more items, and go back to the first or second and try to subtract or delete??? Basically simple 1 or 2 counts is ok
+      // MARK: Better - still not perfect
       if updater.isRowDeleted  {
+    
         addToCart = false
-        updater.cartTotalCount -= count
-        updater.setCount(for: updater.itemName, to: 0)
         total = 0
-        orderImage = ""
-      }
-      if !addToCart {
         updater.setCount(for: updater.itemName, to: 0)
+      
+        if !addToCart {
+        
+          updater.setCount(for: updater.itemName, to: 0)
+        }
       }
+     
+      updater.itemName = ""
+      itemName = ""
       updater.isRowDeleted = false
+//      if updater.isOrderCancelled {
+//        itemName = ""
+//        count = 0
+//        total = 0
+//        updater.setCount(for: item.name, to: 0)
+//      }
     }
   }
   
@@ -187,10 +197,7 @@ extension ButtonView {
     } else if count == 0 {
       updater.cartTotalCount -= count
       orderVM.removeItem(itemName: updater.itemName, count: count, price: price, total: total, image: orderImage)
-      
-      itemName = ""
-      price = 0
-      total = 0
+      addToCart = false
       updater.itemName = ""
       
     }
@@ -204,7 +211,7 @@ extension ButtonView {
     orderImage = item.image.thumbnail.lowercased()
     orderVM.addItem(itemName: updater.itemName, count: count, price: price, total: total, image: orderImage)
     
-    print("Order image: \(orderImage)")
+ //   print("Order image: \(orderImage)")
   }
   
   func addValues() {

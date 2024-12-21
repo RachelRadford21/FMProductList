@@ -15,10 +15,11 @@ class ProductUpdater: ObservableObject {
   @Published var isRowDeleted: Bool = false
   @Published var itemName: String = ""
     @Published var isOrderConfirmed: Bool = false
-    
+  @Published var isOrderCancelled: Bool = false
   func setCount(for productName: String, to count: Int) {
     productCounts[productName] = count
     print("name: \(productName), count: \(count)")
+    
   }
   
   func getCount(for productName: String) -> Int {

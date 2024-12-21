@@ -32,15 +32,33 @@ class OrderViewModel: ObservableObject {
         saveContext()
        
     }
-    
+
     func removeItem(itemName: String, count: Int, price: Double, total: Double, image: String? = nil) {
+  
         let removeItem = OrderModel(id: UUID(), itemName: itemName, quantity: count, price: price, total: total, image: image ?? "")
         
         context.delete(removeItem)
         
         saveContext()
     }
-    
+
+  func fetchOrders() {
+      do {
+          let fetchDescriptor = FetchDescriptor<OrderModel>(sortBy: [
+              SortDescriptor(\.itemName, order: .forward)
+          ])
+          
+          let fetchedOrders = try context.fetch(fetchDescriptor)
+          
+          DispatchQueue.main.async {
+              self.orders = fetchedOrders
+              self.groupOrdersByProduct(orders: fetchedOrders)
+          }
+      } catch {
+          print("Failed to fetch orders: \(error)")
+      }
+  }
+  
     func groupOrdersByProduct(orders: [OrderModel]) {
         for order in orders {
             if let existingOrder = groupedOrders[order.itemName] {
@@ -53,6 +71,7 @@ class OrderViewModel: ObservableObject {
         }
     }
     
+  
     private func saveContext() {
         do {
             try context.save()

@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct CartButtonView: View {
+  @EnvironmentObject var updater: ProductUpdater
+  
     var buttonTitle: String
     var action: () -> Void?
     
