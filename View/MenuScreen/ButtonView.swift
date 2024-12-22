@@ -88,36 +88,23 @@ extension ButtonView {
           cartCountOverlay
         }
     }
-    .accessibilityIdentifier("cartCountButton")
-    .onChange(of: updater.isRowDeleted) {
-      // MARK: Better - still not perfect
+    .accessibilityIdentifier("cartCountButton").onChange(of: updater.isRowDeleted) {
+     
       if updater.isRowDeleted  {
-       
+        
         addToCart = false
-
-       
-        updater.setCount(for: updater.itemName, to: 0)
         
         total = 0
-
+        updater.setCount(for: updater.itemName, to: 0)
+  
         if !addToCart {
-          
           updater.setCount(for: updater.itemName, to: 0)
-          
         }
-       
       }
-      
+    
       updater.itemName = ""
       itemName = ""
       updater.isRowDeleted = false
-      //      if updater.isOrderCancelled {
-      //        itemName = ""
-      //        count = 0
-      //        total = 0
-      //        updater.setCount(for: item.name, to: 0)
-      //      }
-
     }
   }
   

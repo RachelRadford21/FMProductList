@@ -34,10 +34,10 @@ struct ConfirmationView: View {
                   GroupedOrderView(isConfirmationView: true)
                     CartTotalView(updater: _updater)
                     CartButtonView(action: {
-                      updater.isOrderCancelled = true
-                      
-                     
+                      updater.isStartingNewOrder = true
+                      deletePreviousOrder()
                       updater.isOrderConfirmed.toggle()
+                              updater.isStartingNewOrder = false
                     }, buttonTitle: "Start New Order")
                     
                 }
@@ -47,9 +47,6 @@ struct ConfirmationView: View {
                 .onAppear {
                   orderVM.fetchOrders()
                     orderVM.groupOrdersByProduct(orders: orders)
-                }
-                .onDisappear {
-                  updater.isOrderCancelled = false
                 }
             }
             .scrollIndicators(.hidden)
@@ -63,6 +60,26 @@ var sheetBackgroundColor: some View {
     Color.launchScreenBackground
         .brightness(-0.04)
         .ignoresSafeArea()
+  }
+  
+  func deletePreviousOrder() {
+    let descriptor = FetchDescriptor<OrderModel>()
+    do {
+      
+      let fetchedOrders = try context.fetch(descriptor)
+      
+      for order in fetchedOrders {
+        context.delete(order)
+        updater.removeCount(for: order, to: 0)
+      }
+      
+      try context.save()
+    } catch {
+      print("Error deleting orders: \(error)")
+    }
+    updater.orderTotal = 0
+    updater.cartTotalCount = 0
+    orderVM.groupedOrders.removeAll()
   }
 }
 

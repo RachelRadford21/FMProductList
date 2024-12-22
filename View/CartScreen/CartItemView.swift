@@ -36,6 +36,7 @@ extension CartItemView {
   
   var cartItemView: some View {
     VStack(alignment: .leading) {
+//      if order.quantity > 0 && !orders.isEmpty {
       if order.quantity > 0 {
         Text("\(order.itemName)")
           .font(.custom("RedHatText-SemiBold", size: 18))
@@ -49,7 +50,6 @@ extension CartItemView {
           }
         }
         .padding(.vertical, 5)
-        
         dividerView
       }
     }
@@ -57,20 +57,20 @@ extension CartItemView {
   
   @ViewBuilder
   var cartTextView: some View {
-    if isConfirmationView {
-      Image(order.image)
-        .resizable()
-        .frame(width: 30, height: 30)
-    }
-    Text("\(order.quantity)x")
-      .font(.custom("RedHatText-Bold", size: 17))
-      .foregroundStyle(Color.buttonBackground)
-    Text("@ \(order.price, format: .currency(code: "USD"))")
-      .font(.custom("RedHatText-Regular", size: 17))
-      .foregroundStyle(Color.catFontColor)
-    Text("\(order.total, format: .currency(code: "USD"))")
-      .font(.custom("RedHatText-SemiBold", size: 17))
-      .foregroundStyle(Color.catFontColor).brightness(-0.2)
+      if isConfirmationView {
+        Image(order.image)
+          .resizable()
+          .frame(width: 30, height: 30)
+      }
+      Text("\(order.quantity)x")
+        .font(.custom("RedHatText-Bold", size: 17))
+        .foregroundStyle(Color.buttonBackground)
+      Text("@ \(order.price, format: .currency(code: "USD"))")
+        .font(.custom("RedHatText-Regular", size: 17))
+        .foregroundStyle(Color.catFontColor)
+      Text("\(order.total, format: .currency(code: "USD"))")
+        .font(.custom("RedHatText-SemiBold", size: 17))
+        .foregroundStyle(Color.catFontColor).brightness(-0.2)
   }
   
   var cartRowDeleteButton: some View {
@@ -82,21 +82,8 @@ extension CartItemView {
       updater.orderTotal -= order.total
       
       updater.cartTotalCount -= order.quantity
-      // DONT TOUCH
-      // Not sure why this works but orderVM.removeItem doesnt
-      do {
-        try context.delete(model: OrderModel.self, where: #Predicate { order in
-          order.itemName == order.itemName
-        })
-        try context.save()
-      } catch {
-        print("error: \(error)")
-      }
-      
-      // DONT TOUCH
-      orderVM.groupedOrders.removeValue(forKey: order.itemName)
-      
-      // DONT TOUCH
+
+      deleteRowOrder()
       orderVM.fetchOrders()
       orderVM.groupOrdersByProduct(orders: orders)
     } label: {
@@ -117,6 +104,24 @@ extension CartItemView {
     Divider()
       .foregroundStyle(Color.catFontColor)
       .brightness(-0.2)
+  }
+  
+  func deleteRowOrder() {
+    do {
+      try context.delete(model: OrderModel.self, where: #Predicate { order in
+        order.itemName == order.itemName
+      })
+      try context.save()
+    } catch {
+      print("error: \(error)")
+    }
+  
+    // DONT TOUCH
+    orderVM.groupedOrders.removeValue(forKey: order.itemName)
+    
+    // DONT TOUCH
+//    orderVM.fetchOrders()
+//    orderVM.groupOrdersByProduct(orders: orders)
   }
 }
 
