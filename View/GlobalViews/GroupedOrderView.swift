@@ -32,11 +32,6 @@ extension GroupedOrderView {
     ForEach(Array(orderVM.groupedOrders.values), id: \.itemName) { order in
       CartItemView(order: order, isConfirmationView: isConfirmationView)
     }
-    .onChange(of: updater.isRowDeleted) {
-      orderVM.fetchOrders()
-      orderVM.groupOrdersByProduct(orders: orders)
-      
-    }
   }
 }
 

@@ -89,19 +89,17 @@ extension ButtonView {
         }
     }
     .accessibilityIdentifier("cartCountButton").onChange(of: updater.isRowDeleted) {
-     
+      
       if updater.isRowDeleted  {
-        
         addToCart = false
-        
         total = 0
         updater.setCount(for: updater.itemName, to: 0)
-  
+        
         if !addToCart {
           updater.setCount(for: updater.itemName, to: 0)
         }
       }
-    
+      
       updater.itemName = ""
       itemName = ""
       updater.isRowDeleted = false
@@ -136,7 +134,7 @@ extension ButtonView {
   var addButton: some View {
     countButton(imageName: "icon-increment-quantity") {
       addValues()
-      
+
     }
   }
   
@@ -203,8 +201,6 @@ extension ButtonView {
     
     orderImage = item.image.thumbnail.lowercased()
     orderVM.addItem(itemName: updater.itemName, count: count, price: price, total: total, image: orderImage)
-    
-    //   print("Order image: \(orderImage)")
   }
   
   func addValues() {

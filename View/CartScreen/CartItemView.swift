@@ -36,7 +36,6 @@ extension CartItemView {
   
   var cartItemView: some View {
     VStack(alignment: .leading) {
-//      if order.quantity > 0 && !orders.isEmpty {
       if order.quantity > 0 {
         Text("\(order.itemName)")
           .font(.custom("RedHatText-SemiBold", size: 18))
@@ -78,12 +77,11 @@ extension CartItemView {
       
       updater.isRowDeleted = true
       updater.itemName = order.itemName
-      
       updater.orderTotal -= order.total
-      
       updater.cartTotalCount -= order.quantity
 
       deleteRowOrder()
+      
       orderVM.fetchOrders()
       orderVM.groupOrdersByProduct(orders: orders)
     } label: {
@@ -116,12 +114,7 @@ extension CartItemView {
       print("error: \(error)")
     }
   
-    // DONT TOUCH
     orderVM.groupedOrders.removeValue(forKey: order.itemName)
-    
-    // DONT TOUCH
-//    orderVM.fetchOrders()
-//    orderVM.groupOrdersByProduct(orders: orders)
   }
 }
 
