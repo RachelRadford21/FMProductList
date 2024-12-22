@@ -13,26 +13,17 @@ struct CartItemView: View {
   @EnvironmentObject var updater: ProductUpdater
   @EnvironmentObject var orderVM: OrderViewModel
   @Query var orders: [OrderModel]
-  var itemName: String
-  var quantity: Int
-  var price: Double
-  var total: Double
-  var imageName: String
+  var order: OrderModel
+  var item: ItemModel
   var isConfirmationView: Bool
-    
+  
   init(
-    itemName: String = "",
-    quantity: Int = 0,
-    price: Double = 0,
-    total: Double = 0,
-    imageName: String = "",
+    order: OrderModel = OrderModel(),
+    item: ItemModel = ItemModel(image: ImageModel()),
     isConfirmationView: Bool = false
   ) {
-    self.itemName = itemName
-    self.quantity = quantity
-    self.price = price
-    self.total = total
-    self.imageName = imageName
+    self.order = order
+    self.item = item
     self.isConfirmationView = isConfirmationView
   }
   
@@ -45,8 +36,8 @@ extension CartItemView {
   
   var cartItemView: some View {
     VStack(alignment: .leading) {
-      if quantity > 0 {
-        Text("\(itemName)")
+      if order.quantity > 0 {
+        Text("\(order.itemName)")
           .font(.custom("RedHatText-SemiBold", size: 18))
           .foregroundStyle(Color.black.opacity(0.9))
         
@@ -67,46 +58,47 @@ extension CartItemView {
   @ViewBuilder
   var cartTextView: some View {
     if isConfirmationView {
-      Image(imageName)
+      Image(order.image)
         .resizable()
         .frame(width: 30, height: 30)
     }
-    Text("\(quantity)x")
+    Text("\(order.quantity)x")
       .font(.custom("RedHatText-Bold", size: 17))
       .foregroundStyle(Color.buttonBackground)
-    Text("@ \(price, format: .currency(code: "USD"))")
+    Text("@ \(order.price, format: .currency(code: "USD"))")
       .font(.custom("RedHatText-Regular", size: 17))
       .foregroundStyle(Color.catFontColor)
-    Text("\(total, format: .currency(code: "USD"))")
+    Text("\(order.total, format: .currency(code: "USD"))")
       .font(.custom("RedHatText-SemiBold", size: 17))
       .foregroundStyle(Color.catFontColor).brightness(-0.2)
   }
   
   var cartRowDeleteButton: some View {
     Button {
-      updater.orderTotal -= total
+      
       updater.isRowDeleted = true
-      updater.itemName = itemName
-
-     
-      updater.cartTotalCount -= quantity
- 
-    // DONT TOUCH
+      updater.itemName = order.itemName
+      
+      updater.orderTotal -= order.total
+      
+      updater.cartTotalCount -= order.quantity
+      // DONT TOUCH
       // Not sure why this works but orderVM.removeItem doesnt
       do {
         try context.delete(model: OrderModel.self, where: #Predicate { order in
-          order.itemName == itemName 
+          order.itemName == order.itemName
         })
         try context.save()
       } catch {
         print("error: \(error)")
       }
-  
+      
       // DONT TOUCH
-      orderVM.groupedOrders.removeValue(forKey: itemName)
-    
+      orderVM.groupedOrders.removeValue(forKey: order.itemName)
+      
       // DONT TOUCH
       orderVM.fetchOrders()
+      orderVM.groupOrdersByProduct(orders: orders)
     } label: {
       deleteRowButton
     }

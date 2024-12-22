@@ -92,15 +92,20 @@ extension ButtonView {
     .onChange(of: updater.isRowDeleted) {
       // MARK: Better - still not perfect
       if updater.isRowDeleted  {
-        
+       
         addToCart = false
-        total = 0
+
+       
         updater.setCount(for: updater.itemName, to: 0)
         
+        total = 0
+
         if !addToCart {
           
           updater.setCount(for: updater.itemName, to: 0)
+          
         }
+       
       }
       
       updater.itemName = ""
@@ -112,7 +117,7 @@ extension ButtonView {
       //        total = 0
       //        updater.setCount(for: item.name, to: 0)
       //      }
-      orderVM.groupOrdersByProduct(orders: orders)
+
     }
   }
   

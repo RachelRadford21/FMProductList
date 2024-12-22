@@ -24,15 +24,13 @@ struct GroupedOrderView: View {
   
   var body: some View {
     cartOrders
-    
   }
 }
 
 extension GroupedOrderView {
   var cartOrders: some View {
     ForEach(Array(orderVM.groupedOrders.values), id: \.itemName) { order in
-      CartItemView(itemName: order.itemName, quantity: order.quantity, price: order.price, total: order.total, imageName: order.image, isConfirmationView: isConfirmationView)
-      
+      CartItemView(order: order, isConfirmationView: isConfirmationView)
     }
     .onChange(of: updater.isRowDeleted) {
       orderVM.fetchOrders()
