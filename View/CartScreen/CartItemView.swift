@@ -79,9 +79,9 @@ extension CartItemView {
       updater.itemName = order.itemName
       updater.orderTotal -= order.total
       updater.cartTotalCount -= order.quantity
-
-      deleteRowOrder()
       
+      deleteRowOrder()
+    
       orderVM.fetchOrders()
       orderVM.groupOrdersByProduct(orders: orders)
     } label: {
@@ -107,6 +107,7 @@ extension CartItemView {
   func deleteRowOrder() {
     do {
       try context.delete(model: OrderModel.self, where: #Predicate { order in
+        // terrible practice but i cant use another itemName sooooooooooo
         order.itemName == order.itemName
       })
       try context.save()

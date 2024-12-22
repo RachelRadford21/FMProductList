@@ -34,11 +34,11 @@ class OrderViewModel: ObservableObject {
     }
 
     func removeItem(itemName: String, count: Int, price: Double, total: Double, image: String? = nil) {
-  
+     
         let removeItem = OrderModel(id: UUID(), itemName: itemName, quantity: count, price: price, total: total, image: image ?? "")
         
         context.delete(removeItem)
-        
+     
         saveContext()
     }
 
