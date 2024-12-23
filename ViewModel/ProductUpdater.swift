@@ -13,7 +13,7 @@ class ProductUpdater: ObservableObject {
   @Published var orderTotal: Double = 0
   @Published var productCounts: [String: Int] = [:]
   @Published var isRowDeleted: Bool = false
-  @Published var itemName: String = ""
+ // @Published var itemName: String = ""
   @Published var isOrderConfirmed: Bool = false
   @Published var isStartingNewOrder: Bool = false
   

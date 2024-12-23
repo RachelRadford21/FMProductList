@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CartTotalView: View {
     @EnvironmentObject var updater: ProductUpdater
+    
     var body: some View {
         HStack {
             Text("Order Total ")

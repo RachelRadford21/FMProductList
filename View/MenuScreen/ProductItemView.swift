@@ -9,16 +9,13 @@ import SwiftUI
 import SwiftData
 
 struct ProductItemView: View {
-  let item: ItemModel
   @EnvironmentObject var orderVM: OrderViewModel
   @EnvironmentObject var updater: ProductUpdater
   @State private var addToCart: Bool = false
   @State private var count: Int = 0
-  @State private var itemName: String = ""
-  @State private var price: Double = 0
-  @State private var total: Double = 0
-  
-  public init(
+  let item: ItemModel
+    
+  init(
     item: ItemModel = .init(image: ImageModel(), name: "", category: "", price: 0)
   ) {
     self.item = item
@@ -72,10 +69,8 @@ extension ProductItemView {
       count: Binding(
         get: { updater.getCount(for: item.name) },
         set: { updater.setCount(for: item.name, to: $0) }
-      ), addToCart: $addToCart,
-      itemName: $itemName,
-      price: $price,
-      total: $total,
+      ),
+      addToCart: $addToCart,
       item: item
     )
     .environmentObject(updater)

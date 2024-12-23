@@ -12,9 +12,9 @@ struct CartView: View {
   @Environment(\.modelContext) var context
   @EnvironmentObject var updater: ProductUpdater
   @EnvironmentObject var orderVM: OrderViewModel
-  @Query var orders: [OrderModel]
   @State private var selectedDetent: PresentationDetent = .medium
-  
+  @Query var orders: [OrderModel]
+    
   var body: some View {
     fullCartView
   }

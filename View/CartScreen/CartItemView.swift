@@ -74,14 +74,12 @@ extension CartItemView {
   
   var cartRowDeleteButton: some View {
     Button {
-      
       updater.isRowDeleted = true
-      updater.itemName = order.itemName
       updater.orderTotal -= order.total
       updater.cartTotalCount -= order.quantity
       
       deleteRowOrder()
-    
+        updater.setCount(for: order.itemName, to: 0)
       orderVM.fetchOrders()
       orderVM.groupOrdersByProduct(orders: orders)
     } label: {

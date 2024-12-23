@@ -12,9 +12,9 @@ struct ConfirmationView: View {
     @Environment(\.modelContext) var context
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var updater: ProductUpdater
-    @Query var orders: [OrderModel]
     @EnvironmentObject var orderVM: OrderViewModel
-   
+    @Query var orders: [OrderModel]
+    
     var body: some View {
         ZStack {
             sheetBackgroundColor
@@ -70,6 +70,7 @@ var sheetBackgroundColor: some View {
       
       for order in fetchedOrders {
         context.delete(order)
+          // this still needs work when multiple orders being removed(count doesnt update for all items)
         updater.removeCount(for: order, to: 0)
       }
       

@@ -18,7 +18,6 @@ struct GroupedOrderView: View {
   init(
     isConfirmationView: Bool = false
   ) {
-    
     self.isConfirmationView = isConfirmationView
   }
   
