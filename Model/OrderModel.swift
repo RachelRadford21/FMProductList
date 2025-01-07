@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-class OrderModel {
+class OrderModel: Codable {
     @Attribute var id: UUID
     @Attribute var itemName: String
     @Attribute var quantity: Int
@@ -56,5 +56,16 @@ class OrderModel {
         self.orderTotal = try container.decode(Double.self, forKey: .orderTotal)
         self.image = try container.decode(String.self, forKey: .image)
     }
+  
+  func encode(to encoder: any Encoder) throws {
+    var container = encoder.container(keyedBy: CodingKeys.self)
+    try container.encode(id, forKey: .id)
+    try container.encode(itemName, forKey: .itemName)
+    try container.encode(quantity, forKey: .quantity)
+    try container.encode(price, forKey: .price)
+    try container.encode(total, forKey: .total)
+    try container.encode(orderTotal, forKey: .orderTotal)
+    try container.encode(image, forKey: .image)
+  }
 }
 

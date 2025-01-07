@@ -6,13 +6,11 @@
 //
 
 import SwiftUI
-import SwiftData
 
 struct MenuView: View {
-  @Environment(\.modelContext) var context
-  @Query(sort: \ItemModel.name) var items: [ItemModel]
+ 
   let loader: ProductLoader = ProductLoader()
-   
+  
   var body: some View {
     menuView
       .accessibilityIdentifier("MenuView")
@@ -26,7 +24,7 @@ extension MenuView {
       
       VStack(alignment: .leading) {
         MainHeaderView()
-        menuScrollView
+        MenuScrollView()
           .refreshable {
             Task {
               try await loader.fetchProducts()
@@ -39,24 +37,6 @@ extension MenuView {
         }
       }
     }
-  }
-  
-  var menuScrollView: some View {
-    ScrollView {
-      VStack {
-        ForEach(items, id: \.self) { item in
-          ProductItemView(item: item)
-        }
-        Spacer(minLength: 60)
-        CartView()
-        Spacer(minLength: 100)
-              
-      }
-
-    }
-    .frame(maxWidth: .infinity, alignment: .leading)
-    .scrollIndicators(.hidden)
-          
   }
 }
 

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AB07D4F72D1B27D900287196 /* MenuScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07D4F62D1B27D900287196 /* MenuScrollView.swift */; };
 		AB2767452CEEA0E500B3E50D /* CarbonNeutralView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2767442CEEA0E500B3E50D /* CarbonNeutralView.swift */; };
 		AB27674A2CEEB53B00B3E50D /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2767462CEEB53B00B3E50D /* ImageModel.swift */; };
 		AB27674B2CEEB53B00B3E50D /* ItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2767472CEEB53B00B3E50D /* ItemModel.swift */; };
@@ -40,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AB07D4F62D1B27D900287196 /* MenuScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuScrollView.swift; sourceTree = "<group>"; };
 		AB17358C2CBB4AEF002E3B24 /* FMProductList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FMProductList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB17359C2CBB4AF0002E3B24 /* FMProductListTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FMProductListTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB1735A62CBB4AF0002E3B24 /* FMProductListUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FMProductListUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -199,6 +201,7 @@
 			children = (
 				ABD35C982CEC002B000BABD6 /* MenuView.swift */,
 				ABD35C972CEC002B000BABD6 /* MainHeaderView.swift */,
+				AB07D4F62D1B27D900287196 /* MenuScrollView.swift */,
 				ABD35C992CEC002B000BABD6 /* ProductItemView.swift */,
 				ABD35C962CEC002B000BABD6 /* ButtonView.swift */,
 			);
@@ -367,6 +370,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ABD35C9C2CEC002B000BABD6 /* CartItemView.swift in Sources */,
+				AB07D4F72D1B27D900287196 /* MenuScrollView.swift in Sources */,
 				AB27674A2CEEB53B00B3E50D /* ImageModel.swift in Sources */,
 				AB27674B2CEEB53B00B3E50D /* ItemModel.swift in Sources */,
 				AB9CF6D62CF2858300F799E8 /* CartButtonView.swift in Sources */,

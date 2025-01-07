@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-class ImageModel: Decodable {
+class ImageModel: Codable {
     var thumbnail: String
     var mobile: String
     var tablet: String
@@ -40,4 +40,11 @@ class ImageModel: Decodable {
         tablet = try container.decode(String.self, forKey: .tablet)
         desktop = try container.decode(String.self, forKey: .desktop)
     }
+  func encode(to encoder: any Encoder) throws {
+    var container = encoder.container(keyedBy: CodingKeys.self)
+    try container.encode(thumbnail, forKey: .thumbnail)
+    try container.encode(mobile, forKey: .mobile)
+    try container.encode(tablet, forKey: .tablet)
+    try container.encode(tablet, forKey: .desktop)
+  }
 }

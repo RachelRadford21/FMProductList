@@ -41,11 +41,13 @@ class ItemModel: Codable {
       self.category = try container.decode(String.self, forKey: .category)
       self.price = try container.decode(Double.self, forKey: .price)
     }
+  
     func encode(to encoder: any Encoder) throws {
-        
-    }
-    func decode(from decoder: Decoder) throws -> Self {
-        try .init(from: decoder)
+      var container = encoder.container(keyedBy: CodingKeys.self)
+          try container.encode(image, forKey: .image)
+          try container.encode(name, forKey: .name)
+          try container.encode(category, forKey: .category)
+          try container.encode(price, forKey: .price)
     }
 }
 

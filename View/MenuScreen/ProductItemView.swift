@@ -14,11 +14,13 @@ struct ProductItemView: View {
   @State private var addToCart: Bool = false
   @State private var count: Int = 0
   let item: ItemModel
-    
+  let order: OrderModel
   init(
-    item: ItemModel = .init(image: ImageModel(), name: "", category: "", price: 0)
+    item: ItemModel = .init(image: ImageModel(), name: "", category: "", price: 0),
+    order: OrderModel = OrderModel()
   ) {
     self.item = item
+    self.order = order
   }
   
   var body: some View {
@@ -58,7 +60,6 @@ extension ProductItemView {
   private var productImageView: Image {
     return Image(item.image.mobile)
   }
-  
   
   var imageButtonBorderColor: Color {
     addToCart ? Color.buttonBackground : Color.clear

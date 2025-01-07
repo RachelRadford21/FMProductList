@@ -14,7 +14,7 @@ struct CartView: View {
   @EnvironmentObject var orderVM: OrderViewModel
   @State private var selectedDetent: PresentationDetent = .medium
   @Query var orders: [OrderModel]
-    
+
   var body: some View {
     fullCartView
   }
