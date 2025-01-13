@@ -37,4 +37,5 @@ Personal projects keep your skills sharp, provide opportunities to experiment, a
 In this case, I worked with both SwiftData and testing. While testing itself was manageable, UI testing introduced complexities, particularly with subviews—an area where I have much to learn.
 
 
-**Despite these challenges, the experience was invaluable. It highlighted areas for growth, such as UI testing strategies and          better planning for new technologies. I’m looking forward to applying these lessons in future projects to continue refining my      skills and building applications I can be proud of.**
+**Despite these challenges, the experience was invaluable. It highlighted areas for growth, such as UI testing strategies and          better planning for implementing new technologies/skills. I’m looking forward to applying these lessons in future projects to       continue refining my skills and building applications I can be proud of.**
+
