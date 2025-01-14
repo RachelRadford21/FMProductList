@@ -39,3 +39,12 @@ In this case, I worked with both SwiftData and testing. While testing itself was
 
 **Despite these challenges, the experience was invaluable. It highlighted areas for growth, such as UI testing strategies and          better planning for implementing new technologies/skills. I’m looking forward to applying these lessons in future projects to       continue refining my skills and building applications I can be proud of.**
 
+
+<img src="https://github.com/user-attachments/assets/90339232-f6b4-43be-9132-7b9430876dbc" alt="App Image" width="350">
+
+<img src="https://github.com/user-attachments/assets/0c7f5820-43ab-4045-9b47-5d68531c0880" alt="App Image" width="350">
+
+
+<img src="https://github.com/user-attachments/assets/5af3add9-4b6e-4d68-949a-950a0e4515b5" alt="App Image" width="350">
+
+<img src="https://github.com/user-attachments/assets/1b4c2e73-53c1-4e07-b912-debd824597cd" alt="App Image" width="350">
