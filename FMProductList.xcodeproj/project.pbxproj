@@ -68,6 +68,22 @@
 			);
 			target = AB17358B2CBB4AEE002E3B24 /* FMProductList */;
 		};
+		ABB579872D2F54A800CC61DA /* Exceptions for "HelperFiles" folder in "FMProductList" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Resources/MockData.json,
+				Resources/MockDataLoader.swift,
+			);
+			target = AB17358B2CBB4AEE002E3B24 /* FMProductList */;
+		};
+		ABB579882D2F54A800CC61DA /* Exceptions for "HelperFiles" folder in "FMProductListUITests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Resources/MockData.json,
+				Resources/MockDataLoader.swift,
+			);
+			target = AB1735A52CBB4AF0002E3B24 /* FMProductListUITests */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -91,6 +107,10 @@
 		};
 		AB1735C22CBB4B9B002E3B24 /* HelperFiles */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				ABB579872D2F54A800CC61DA /* Exceptions for "HelperFiles" folder in "FMProductList" target */,
+				ABB579882D2F54A800CC61DA /* Exceptions for "HelperFiles" folder in "FMProductListUITests" target */,
+			);
 			path = HelperFiles;
 			sourceTree = "<group>";
 		};

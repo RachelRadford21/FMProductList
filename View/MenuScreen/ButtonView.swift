@@ -103,6 +103,7 @@ extension ButtonView {
     countButton(imageName: "icon-decrement-quantity") {
       subtractValues()
     }
+    .accessibilityIdentifier("subButton")
   }
   
   var countTextView: some View {
@@ -116,6 +117,7 @@ extension ButtonView {
     countButton(imageName: "icon-increment-quantity") {
       addValues()
     }
+    .accessibilityIdentifier("addButton")
   }
   
   func countButton(imageName: String, action: (() -> Void)?) ->  some View {
@@ -130,6 +132,7 @@ extension ButtonView {
           Image(imageName)
         }
     }
+    .accessibilityIdentifier("countButton")
   }
   
   var buttonLabelView: some View {
@@ -138,6 +141,7 @@ extension ButtonView {
       .frame(width: 155, height: 40)
       .background(buttonBackgroundColor)
       .clipShape(RoundedRectangle(cornerRadius: 25))
+      .accessibilityIdentifier("buttonLabel")
   }
   
   var addToCartOpacity: CGFloat {

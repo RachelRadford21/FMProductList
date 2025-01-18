@@ -54,6 +54,7 @@ extension ProductItemView {
           RoundedRectangle(cornerRadius: 10)
             .strokeBorder(imageButtonBorderColor, lineWidth: 4)
         })
+        .accessibilityIdentifier("ProductImage-\(item.image.mobile)")
     }
   }
   
@@ -76,6 +77,7 @@ extension ProductItemView {
     )
     .environmentObject(updater)
     .offset(y: 20)
+    .accessibilityIdentifier("ProductItemButton")
   }
   
   var productInfo: some View {
@@ -84,11 +86,14 @@ extension ProductItemView {
         .font(.custom("RedHatText-SemiBold", size: 10))
         .foregroundStyle(Color.catFontColor.opacity(0.7))
         .padding(.top, 20)
+        .accessibilityIdentifier("ProductCategory-\(item.category)")
       Text(item.name)
         .font(.custom("RedHatText-SemiBold", size: 15))
+        .accessibilityIdentifier("ProductName-\(item.name)")
       Text("$\(item.price, specifier: "%.2f")")
         .font(.custom("RedHatText-Bold", size: 12))
         .foregroundStyle(Color.buttonBackground)
+        .accessibilityIdentifier("ProductPrice-\(item.price)")
     }
     .padding(.vertical, 10)
   }

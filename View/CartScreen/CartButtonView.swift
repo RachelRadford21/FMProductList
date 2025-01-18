@@ -22,15 +22,18 @@ struct CartButtonView: View {
     }
     
     var body: some View {
-        Button {
-            action()
-        } label: {
-            orderConfirmationLabel
-        }
+      cartButton
     }
 }
 
 extension CartButtonView {
+  var cartButton: some View {
+    Button {
+        action()
+    } label: {
+        orderConfirmationLabel
+    }
+  }
   var orderConfirmationLabel: some View {
     Capsule(style: .continuous)
       .strokeBorder(Color.clear)
@@ -44,6 +47,4 @@ extension CartButtonView {
   }
 }
 
-//#Preview {
-//    CartButtonView()
-//}
+

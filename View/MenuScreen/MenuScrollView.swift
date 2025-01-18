@@ -17,9 +17,11 @@ struct MenuScrollView: View {
         VStack {
           ForEach(items, id: \.self) { item in
             ProductItemView(item: item)
+              .accessibilityIdentifier("ProductItem-\(item.name)")
           }
           Spacer(minLength: 60)
           CartView()
+            .accessibilityIdentifier("CartView")
           Spacer(minLength: 100)
                 
         }

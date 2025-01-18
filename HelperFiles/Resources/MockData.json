@@ -1,0 +1,14 @@
+
+[
+    {
+        "image": {
+            "thumbnail": "image-waffle-thumbnail",
+            "mobile": "image-waffle-mobile",
+            "tablet": "image-waffle-tablet",
+            "desktop": "image-waffle-desktop"
+        },
+        "name": "Waffle with Berries",
+        "category": "Waffle",
+        "price": 6.5
+    }
+]

@@ -6,13 +6,11 @@
 //
 
 import XCTest
-import Foundation
-@testable import FMProductList
+//@testable import FMProductList
 
 final class FMProductListUITests: XCTestCase {
 
     func testInitialStateShowsMacaronImage() {
-        func testInitialStateShowsMacaronImage() {
                 let app = XCUIApplication()
                 app.launch()
                 
@@ -28,8 +26,6 @@ final class FMProductListUITests: XCTestCase {
                     print("Transition did not complete in time, result: \(result)")
                 }
                 XCTAssertEqual(result, .timedOut, "MenuView should be visible after 2 seconds")
-                
-            }
     }
     
     func testAddToCartButtonVisibility() throws {

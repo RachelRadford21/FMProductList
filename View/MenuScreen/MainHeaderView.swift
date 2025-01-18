@@ -12,6 +12,8 @@ struct MainHeaderView: View {
         Text("Desserts")
             .font(.custom("RedHatText-Bold", size: 25))
             .padding(.leading, 20)
+            .accessibilityIdentifier("MainHeader")
+            
     }
 }
 

@@ -17,30 +17,17 @@ struct ConfirmationView: View {
   @Query var items: [ItemModel]
   
   var body: some View {
+    confirmationView
+  }
+}
+
+extension ConfirmationView {
+  var confirmationView: some View {
     ZStack {
       sheetBackgroundColor
       ScrollView {
         VStack(alignment: .leading, spacing: 20) {
-          Image("icon-order-confirmed")
-            .resizable()
-            .frame(width: 55, height: 55, alignment: .leading)
-          Text("Order \nConfirmed")
-            .font(.custom("RedHatText-Bold", size: 40))
-          Text("We hope you enjoy your food!")
-            .foregroundStyle(Color.catFontColor)
-            .font(.custom("RedHatText-Regular", size: 20))
-            .padding(.bottom, 10)
-            .padding(.top, -5)
-          
-          GroupedOrderView(isConfirmationView: true)
-          CartTotalView(updater: _updater)
-          CartButtonView(action: {
-            updater.isStartingNewOrder = true
-            deletePreviousOrder()
-            updater.isOrderConfirmed.toggle()
-            updater.isStartingNewOrder = false
-          }, buttonTitle: "Start New Order")
-          
+          scrollViewContent
         }
         .padding(60)
         .background(CardBackgroundView(minWidth: 350, minHeight: 500))
@@ -54,10 +41,40 @@ struct ConfirmationView: View {
       .scrollIndicators(.hidden)
     }
   }
-}
-
-extension ConfirmationView {
   
+  @ViewBuilder
+  var scrollViewContent: some View {
+    orderConfirmedText
+    orderContentView
+  }
+  
+  var orderConfirmedText: some View {
+    VStack(alignment: .leading) {
+      Image("icon-order-confirmed")
+        .resizable()
+        .frame(width: 55, height: 55, alignment: .leading)
+      Text("Order \nConfirmed")
+        .font(.custom("RedHatText-Bold", size: 40))
+      Text("We hope you enjoy your food!")
+        .foregroundStyle(Color.catFontColor)
+        .font(.custom("RedHatText-Regular", size: 20))
+        .padding(.bottom, 10)
+        .padding(.top, -5)
+    }
+  }
+  
+  @ViewBuilder
+  var orderContentView: some View {
+    GroupedOrderView(isConfirmationView: true)
+    CartTotalView(updater: _updater)
+    CartButtonView(action: {
+      updater.isStartingNewOrder = true
+      deletePreviousOrder()
+      updater.isOrderConfirmed.toggle()
+      updater.isStartingNewOrder = false
+    }, buttonTitle: "Start New Order")
+  }
+ 
   var sheetBackgroundColor: some View {
     Color.launchScreenBackground
       .brightness(-0.04)

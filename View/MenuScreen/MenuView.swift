@@ -24,7 +24,9 @@ extension MenuView {
       
       VStack(alignment: .leading) {
         MainHeaderView()
+          .accessibilityIdentifier("MainHeaderView")
         MenuScrollView()
+          .accessibilityIdentifier("MenuScrollView")
           .refreshable {
             Task {
               try await loader.fetchProducts()

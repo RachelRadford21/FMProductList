@@ -9,13 +9,13 @@ import Foundation
 import SwiftData
 
 @Model
-class ItemModel: Codable {
+public class ItemModel: Codable {
     @Attribute var image: ImageModel
     @Attribute var name: String
     @Attribute var category: String
     @Attribute var price: Double
     
-    init(
+    public init(
         image: ImageModel,
         name: String = "",
         category: String = "",
@@ -34,7 +34,7 @@ class ItemModel: Codable {
         case price
     }
     
-    required init(from decoder: Decoder) throws {
+    required public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
       self.image = try container.decode(ImageModel.self, forKey: .image)
       self.name = try container.decode(String.self, forKey: .name)
@@ -42,7 +42,7 @@ class ItemModel: Codable {
       self.price = try container.decode(Double.self, forKey: .price)
     }
   
-    func encode(to encoder: any Encoder) throws {
+   public func encode(to encoder: any Encoder) throws {
       var container = encoder.container(keyedBy: CodingKeys.self)
           try container.encode(image, forKey: .image)
           try container.encode(name, forKey: .name)
